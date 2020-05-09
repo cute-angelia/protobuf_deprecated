@@ -57,12 +57,12 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/cute-angelia/protobuf/protoc-gen-go/generator/internal/remap"
+	"github.com/golang/protobuf/proto"
 
+	goutils "github.com/cute-angelia/goutils"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
-	goutils "github.com/cute-angelia/goutils"
 )
 
 // generatedCodeVersion indicates a version of the generated code.
@@ -2191,9 +2191,9 @@ func (g *Generator) generateCommonMethods(mc *msgCtx) {
 
 	// fixed cyw add gorm tablename
 	if strings.Contains(mc.goName, "Model") {
-		tableName := goutils.UnderscoreName(strings.Split(mc.goName, "Model")[0]);
+		tableName := goutils.UnderscoreName(strings.Split(mc.goName, "Model")[0])
 		g.P("func (m *", mc.goName, ") TableName() string {")
-		g.P("return ", "\"", strings.ToLower(tableName),"\"" , "")
+		g.P("return ", "\"", strings.ToLower(tableName), "\"", "")
 		g.P("}")
 	}
 
@@ -2252,9 +2252,9 @@ func (g *Generator) generateMessage(message *Descriptor) {
 		jsonName := *field.Name
 
 		// fixed cyw add gorm and check isRequired
-		tag := fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+",omitempty", jsonName+",omitempty")
+		tag := fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+",omitempty", "column:"+jsonName+",omitempty")
 		if isRequired(field) {
-			tag = fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+"", jsonName+"")
+			tag = fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+"", "column:"+jsonName+"")
 		}
 
 		oneof := field.OneofIndex != nil
@@ -2279,7 +2279,7 @@ func (g *Generator) generateMessage(message *Descriptor) {
 			of := oneofField{
 				fieldCommon: fieldCommon{
 					goName:     fname,
-					getterName: "Get"+fname,
+					getterName: "Get" + fname,
 					goType:     dname,
 					tags:       tag,
 					protoName:  odp.GetName(),
