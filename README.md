@@ -5,7 +5,7 @@ go get -u github.com/cute-angelia/protobuf/protoc-gen-go
 ```
 
 
-## make some fix support gorm
+## make some fixed support gorm
 
 all fixed code will taged , you can search word `fixed cyw` get there
 
