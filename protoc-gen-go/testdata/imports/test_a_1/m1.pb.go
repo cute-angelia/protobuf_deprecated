@@ -43,9 +43,9 @@ func (E1) EnumDescriptor() ([]byte, []int) {
 }
 
 type M1 struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *M1) Reset()         { *m = M1{} }
@@ -74,10 +74,10 @@ func (m *M1) XXX_DiscardUnknown() {
 var xxx_messageInfo_M1 proto.InternalMessageInfo
 
 type M1_1 struct {
-	M1                   *M1      `protobuf:"bytes,1,opt,name=m1,proto3" json:"m1,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	M1                   *M1      `protobuf:"bytes,1,opt,name=m1,proto3" json:"m1,omitempty" gorm:"column:m1,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *M1_1) Reset()         { *m = M1_1{} }

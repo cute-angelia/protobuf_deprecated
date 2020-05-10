@@ -4,10 +4,8 @@
 package testing
 
 import (
-	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	grpc "google.golang.org/grpc"
 	math "math"
 )
 
@@ -34,46 +32,4 @@ var fileDescriptor_c580a37f1c90e9b1 = []byte{
 	0x63, 0x52, 0x69, 0x1a, 0x84, 0x91, 0xac, 0x9b, 0x9e, 0x9a, 0xa7, 0x9b, 0x9e, 0xaf, 0x0f, 0x32,
 	0x23, 0x25, 0xb1, 0x24, 0x11, 0x6c, 0x87, 0x35, 0xd4, 0xc4, 0x24, 0x36, 0xb0, 0x22, 0x63, 0x40,
 	0x00, 0x00, 0x00, 0xff, 0xff, 0x93, 0x1d, 0xf2, 0x47, 0x7f, 0x00, 0x00, 0x00,
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConn
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
-
-// EmptyServiceClient is the client API for EmptyService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type EmptyServiceClient interface {
-}
-
-type emptyServiceClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewEmptyServiceClient(cc *grpc.ClientConn) EmptyServiceClient {
-	return &emptyServiceClient{cc}
-}
-
-// EmptyServiceServer is the server API for EmptyService service.
-type EmptyServiceServer interface {
-}
-
-// UnimplementedEmptyServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedEmptyServiceServer struct {
-}
-
-func RegisterEmptyServiceServer(s *grpc.Server, srv EmptyServiceServer) {
-	s.RegisterService(&_EmptyService_serviceDesc, srv)
-}
-
-var _EmptyService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.testing.EmptyService",
-	HandlerType: (*EmptyServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "grpc/grpc_empty.proto",
 }

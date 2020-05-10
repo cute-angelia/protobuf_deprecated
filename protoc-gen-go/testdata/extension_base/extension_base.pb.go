@@ -21,11 +21,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type BaseMessage struct {
-	Height                       *int32   `protobuf:"varint,1,opt,name=height" json:"height,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	Height                       *int32   `protobuf:"varint,1,opt,name=height" json:"height,omitempty" gorm:"column:height,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *BaseMessage) Reset()         { *m = BaseMessage{} }
@@ -71,10 +71,10 @@ func (m *BaseMessage) GetHeight() int32 {
 
 // Another message that may be extended, using message_set_wire_format.
 type OldStyleMessage struct {
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `protobuf_messageset:"1" json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `protobuf_messageset:"1" gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *OldStyleMessage) Reset()         { *m = OldStyleMessage{} }

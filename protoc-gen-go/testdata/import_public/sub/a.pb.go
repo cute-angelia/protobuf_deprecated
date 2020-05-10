@@ -133,16 +133,16 @@ func (M_Submessage_Submessage_Subenum) EnumDescriptor() ([]byte, []int) {
 
 type M struct {
 	// Field using a type in the same Go package, but a different source file.
-	M2 *M2 `protobuf:"bytes,1,opt,name=m2" json:"m2,omitempty"`
+	M2 *M2 `protobuf:"bytes,1,opt,name=m2" json:"m2,omitempty" gorm:"column:m2,omitempty"`
 	// Types that are valid to be assigned to OneofField:
 	//	*M_OneofInt32
 	//	*M_OneofInt64
 	OneofField           isM_OneofField `protobuf_oneof:"oneof_field"`
-	Grouping             *M_Grouping    `protobuf:"group,4,opt,name=Grouping,json=grouping" json:"grouping,omitempty"`
-	DefaultField         *string        `protobuf:"bytes,6,opt,name=default_field,json=defaultField,def=def" json:"default_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
+	Grouping             *M_Grouping    `protobuf:"group,4,opt,name=Grouping,json=grouping" json:"grouping,omitempty" gorm:"column:grouping,omitempty"`
+	DefaultField         *string        `protobuf:"bytes,6,opt,name=default_field,json=defaultField,def=def" json:"default_field,omitempty" gorm:"column:default_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte         `gorm:"-" json:"-"`
+	XXX_sizecache        int32          `gorm:"-" json:"-"`
 }
 
 func (m *M) Reset()         { *m = M{} }
@@ -239,10 +239,10 @@ func (*M) XXX_OneofWrappers() []interface{} {
 }
 
 type M_Grouping struct {
-	GroupField           *string  `protobuf:"bytes,5,opt,name=group_field,json=groupField" json:"group_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GroupField           *string  `protobuf:"bytes,5,opt,name=group_field,json=groupField" json:"group_field,omitempty" gorm:"column:group_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *M_Grouping) Reset()         { *m = M_Grouping{} }
@@ -282,9 +282,9 @@ type M_Submessage struct {
 	//	*M_Submessage_SubmessageOneofInt32
 	//	*M_Submessage_SubmessageOneofInt64
 	SubmessageOneofField isM_Submessage_SubmessageOneofField `protobuf_oneof:"submessage_oneof_field"`
-	XXX_NoUnkeyedLiteral struct{}                            `json:"-"`
-	XXX_unrecognized     []byte                              `json:"-"`
-	XXX_sizecache        int32                               `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}                            `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                              `gorm:"-" json:"-"`
+	XXX_sizecache        int32                               `gorm:"-" json:"-"`
 }
 
 func (m *M_Submessage) Reset()         { *m = M_Submessage{} }

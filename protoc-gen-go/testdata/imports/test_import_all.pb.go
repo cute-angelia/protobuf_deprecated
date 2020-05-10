@@ -25,16 +25,16 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type All struct {
-	Am1                  *test_a_1.M1 `protobuf:"bytes,1,opt,name=am1,proto3" json:"am1,omitempty"`
-	Am2                  *test_a_1.M2 `protobuf:"bytes,2,opt,name=am2,proto3" json:"am2,omitempty"`
-	Am3                  *test_a_2.M3 `protobuf:"bytes,3,opt,name=am3,proto3" json:"am3,omitempty"`
-	Am4                  *test_a_2.M4 `protobuf:"bytes,4,opt,name=am4,proto3" json:"am4,omitempty"`
-	Bm1                  *test_b_1.M1 `protobuf:"bytes,5,opt,name=bm1,proto3" json:"bm1,omitempty"`
-	Bm2                  *test_b_1.M2 `protobuf:"bytes,6,opt,name=bm2,proto3" json:"bm2,omitempty"`
-	Fmt                  *fmt1.M      `protobuf:"bytes,7,opt,name=fmt,proto3" json:"fmt,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	Am1                  *test_a_1.M1 `protobuf:"bytes,1,opt,name=am1,proto3" json:"am1,omitempty" gorm:"column:am1,omitempty"`
+	Am2                  *test_a_1.M2 `protobuf:"bytes,2,opt,name=am2,proto3" json:"am2,omitempty" gorm:"column:am2,omitempty"`
+	Am3                  *test_a_2.M3 `protobuf:"bytes,3,opt,name=am3,proto3" json:"am3,omitempty" gorm:"column:am3,omitempty"`
+	Am4                  *test_a_2.M4 `protobuf:"bytes,4,opt,name=am4,proto3" json:"am4,omitempty" gorm:"column:am4,omitempty"`
+	Bm1                  *test_b_1.M1 `protobuf:"bytes,5,opt,name=bm1,proto3" json:"bm1,omitempty" gorm:"column:bm1,omitempty"`
+	Bm2                  *test_b_1.M2 `protobuf:"bytes,6,opt,name=bm2,proto3" json:"bm2,omitempty" gorm:"column:bm2,omitempty"`
+	Fmt                  *fmt1.M      `protobuf:"bytes,7,opt,name=fmt,proto3" json:"fmt,omitempty" gorm:"column:fmt,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte       `gorm:"-" json:"-"`
+	XXX_sizecache        int32        `gorm:"-" json:"-"`
 }
 
 func (m *All) Reset()         { *m = All{} }

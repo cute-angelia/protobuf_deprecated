@@ -4,6 +4,14 @@
 go get -u github.com/cute-angelia/protobuf/protoc-gen-go
 ```
 
+或者
+
+```
+git clone https://github.com/cute-angelia/protobuf.git
+
+cd protobuf/protoc-gen-go && go install 
+```
+
 
 ## make some fixed support gorm
 

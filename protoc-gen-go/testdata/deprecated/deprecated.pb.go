@@ -6,12 +6,8 @@
 package deprecated
 
 import (
-	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -53,9 +49,9 @@ func (DeprecatedEnum) EnumDescriptor() ([]byte, []int) {
 //
 // Deprecated: Do not use.
 type DeprecatedRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *DeprecatedRequest) Reset()         { *m = DeprecatedRequest{} }
@@ -86,15 +82,15 @@ var xxx_messageInfo_DeprecatedRequest proto.InternalMessageInfo
 // Deprecated: Do not use.
 type DeprecatedResponse struct {
 	// DeprecatedField contains a DeprecatedEnum.
-	DeprecatedField DeprecatedEnum `protobuf:"varint,1,opt,name=deprecated_field,json=deprecatedField,proto3,enum=deprecated.DeprecatedEnum" json:"deprecated_field,omitempty"` // Deprecated: Do not use.
+	DeprecatedField DeprecatedEnum `protobuf:"varint,1,opt,name=deprecated_field,json=deprecatedField,proto3,enum=deprecated.DeprecatedEnum" json:"deprecated_field,omitempty" gorm:"column:deprecated_field,omitempty"` // Deprecated: Do not use.
 	// DeprecatedOneof contains a deprecated field.
 	//
 	// Types that are valid to be assigned to DeprecatedOneof:
 	//	*DeprecatedResponse_DeprecatedOneofField
 	DeprecatedOneof      isDeprecatedResponse_DeprecatedOneof `protobuf_oneof:"deprecated_oneof"`
-	XXX_NoUnkeyedLiteral struct{}                             `json:"-"`
-	XXX_unrecognized     []byte                               `json:"-"`
-	XXX_sizecache        int32                                `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}                             `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                               `gorm:"-" json:"-"`
+	XXX_sizecache        int32                                `gorm:"-" json:"-"`
 }
 
 func (m *DeprecatedResponse) Reset()         { *m = DeprecatedResponse{} }
@@ -190,94 +186,4 @@ var fileDescriptor_f64ba265cd7eae3f = []byte{
 	0x8d, 0x5f, 0x8a, 0x3a, 0xe1, 0xa5, 0x3f, 0xdc, 0x23, 0xed, 0x8b, 0x6d, 0x90, 0xcd, 0x4a, 0xe4,
 	0xb3, 0x52, 0xf8, 0x12, 0x3b, 0x99, 0x27, 0x32, 0x31, 0x4e, 0xf7, 0x05, 0x90, 0xfe, 0x1f, 0x5c,
 	0xd7, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x08, 0xd5, 0xa0, 0x89, 0xdd, 0x01, 0x00, 0x00,
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConn
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
-
-// DeprecatedServiceClient is the client API for DeprecatedService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-//
-// Deprecated: Do not use.
-type DeprecatedServiceClient interface {
-	// DeprecatedCall takes a DeprecatedRequest and returns a DeprecatedResponse.
-	DeprecatedCall(ctx context.Context, in *DeprecatedRequest, opts ...grpc.CallOption) (*DeprecatedResponse, error)
-}
-
-type deprecatedServiceClient struct {
-	cc *grpc.ClientConn
-}
-
-// Deprecated: Do not use.
-func NewDeprecatedServiceClient(cc *grpc.ClientConn) DeprecatedServiceClient {
-	return &deprecatedServiceClient{cc}
-}
-
-// Deprecated: Do not use.
-func (c *deprecatedServiceClient) DeprecatedCall(ctx context.Context, in *DeprecatedRequest, opts ...grpc.CallOption) (*DeprecatedResponse, error) {
-	out := new(DeprecatedResponse)
-	err := c.cc.Invoke(ctx, "/deprecated.DeprecatedService/DeprecatedCall", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// DeprecatedServiceServer is the server API for DeprecatedService service.
-//
-// Deprecated: Do not use.
-type DeprecatedServiceServer interface {
-	// DeprecatedCall takes a DeprecatedRequest and returns a DeprecatedResponse.
-	DeprecatedCall(context.Context, *DeprecatedRequest) (*DeprecatedResponse, error)
-}
-
-// Deprecated: Do not use.
-// UnimplementedDeprecatedServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedDeprecatedServiceServer struct {
-}
-
-func (*UnimplementedDeprecatedServiceServer) DeprecatedCall(ctx context.Context, req *DeprecatedRequest) (*DeprecatedResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeprecatedCall not implemented")
-}
-
-// Deprecated: Do not use.
-func RegisterDeprecatedServiceServer(s *grpc.Server, srv DeprecatedServiceServer) {
-	s.RegisterService(&_DeprecatedService_serviceDesc, srv)
-}
-
-func _DeprecatedService_DeprecatedCall_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeprecatedRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeprecatedServiceServer).DeprecatedCall(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/deprecated.DeprecatedService/DeprecatedCall",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeprecatedServiceServer).DeprecatedCall(ctx, req.(*DeprecatedRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _DeprecatedService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "deprecated.DeprecatedService",
-	HandlerType: (*DeprecatedServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "DeprecatedCall",
-			Handler:    _DeprecatedService_DeprecatedCall_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "deprecated/deprecated.proto",
 }

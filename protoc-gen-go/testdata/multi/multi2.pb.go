@@ -64,11 +64,11 @@ func (Multi2_Color) EnumDescriptor() ([]byte, []int) {
 }
 
 type Multi2 struct {
-	RequiredValue        *int32        `protobuf:"varint,1,req,name=required_value,json=requiredValue" json:"required_value,omitempty"`
-	Color                *Multi2_Color `protobuf:"varint,2,opt,name=color,enum=multitest.Multi2_Color" json:"color,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	RequiredValue        *int32        `protobuf:"varint,1,req,name=required_value,json=requiredValue" json:"required_value" gorm:"column:required_value"`
+	Color                *Multi2_Color `protobuf:"varint,2,opt,name=color,enum=multitest.Multi2_Color" json:"color,omitempty" gorm:"column:color,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte        `gorm:"-" json:"-"`
+	XXX_sizecache        int32         `gorm:"-" json:"-"`
 }
 
 func (m *Multi2) Reset()         { *m = Multi2{} }

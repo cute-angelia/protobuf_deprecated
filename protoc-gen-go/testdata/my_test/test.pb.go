@@ -193,29 +193,29 @@ func (Reply_Entry_Game) EnumDescriptor() ([]byte, []int) {
 
 // This is a message that might be sent somewhere.
 type Request struct {
-	Key []int64 `protobuf:"varint,1,rep,name=key" json:"key,omitempty"`
+	Key []int64 `protobuf:"varint,1,rep,name=key" json:"key,omitempty" gorm:"column:key,omitempty"`
 	//  optional imp.ImportedMessage imported_message = 2;
-	Hue *Request_Color `protobuf:"varint,3,opt,name=hue,enum=my.test.Request_Color" json:"hue,omitempty"`
-	Hat *HatType       `protobuf:"varint,4,opt,name=hat,enum=my.test.HatType,def=1" json:"hat,omitempty"`
+	Hue *Request_Color `protobuf:"varint,3,opt,name=hue,enum=my.test.Request_Color" json:"hue,omitempty" gorm:"column:hue,omitempty"`
+	Hat *HatType       `protobuf:"varint,4,opt,name=hat,enum=my.test.HatType,def=1" json:"hat,omitempty" gorm:"column:hat,omitempty"`
 	//  optional imp.ImportedMessage.Owner owner = 6;
-	Deadline  *float32           `protobuf:"fixed32,7,opt,name=deadline,def=inf" json:"deadline,omitempty"`
-	Somegroup *Request_SomeGroup `protobuf:"group,8,opt,name=SomeGroup,json=somegroup" json:"somegroup,omitempty"`
+	Deadline  *float32           `protobuf:"fixed32,7,opt,name=deadline,def=inf" json:"deadline,omitempty" gorm:"column:deadline,omitempty"`
+	Somegroup *Request_SomeGroup `protobuf:"group,8,opt,name=SomeGroup,json=somegroup" json:"somegroup,omitempty" gorm:"column:somegroup,omitempty"`
 	// This is a map field. It will generate map[int32]string.
-	NameMapping map[int32]string `protobuf:"bytes,14,rep,name=name_mapping,json=nameMapping" json:"name_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	NameMapping map[int32]string `protobuf:"bytes,14,rep,name=name_mapping,json=nameMapping" json:"name_mapping,omitempty" gorm:"column:name_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// This is a map field whose value type is a message.
-	MsgMapping map[int64]*Reply `protobuf:"bytes,15,rep,name=msg_mapping,json=msgMapping" json:"msg_mapping,omitempty" protobuf_key:"zigzag64,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Reset_     *int32           `protobuf:"varint,12,opt,name=reset" json:"reset,omitempty"`
+	MsgMapping map[int64]*Reply `protobuf:"bytes,15,rep,name=msg_mapping,json=msgMapping" json:"msg_mapping,omitempty" gorm:"column:msg_mapping,omitempty" protobuf_key:"zigzag64,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Reset_     *int32           `protobuf:"varint,12,opt,name=reset" json:"reset,omitempty" gorm:"column:reset,omitempty"`
 	// This field should not conflict with any getters.
-	GetKey_              *string  `protobuf:"bytes,16,opt,name=get_key,json=getKey" json:"get_key,omitempty"`
-	FloatNinf            *float32 `protobuf:"fixed32,20,opt,name=float_ninf,json=floatNinf,def=-inf" json:"float_ninf,omitempty"`
-	FloatPinf            *float32 `protobuf:"fixed32,21,opt,name=float_pinf,json=floatPinf,def=inf" json:"float_pinf,omitempty"`
-	FloatExp             *float32 `protobuf:"fixed32,22,opt,name=float_exp,json=floatExp,def=1e+09" json:"float_exp,omitempty"`
-	DoubleNinf           *float64 `protobuf:"fixed64,23,opt,name=double_ninf,json=doubleNinf,def=-inf" json:"double_ninf,omitempty"`
-	DoublePinf           *float64 `protobuf:"fixed64,24,opt,name=double_pinf,json=doublePinf,def=inf" json:"double_pinf,omitempty"`
-	DoubleExp            *float64 `protobuf:"fixed64,25,opt,name=double_exp,json=doubleExp,def=1e+09" json:"double_exp,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GetKey_              *string  `protobuf:"bytes,16,opt,name=get_key,json=getKey" json:"get_key,omitempty" gorm:"column:get_key,omitempty"`
+	FloatNinf            *float32 `protobuf:"fixed32,20,opt,name=float_ninf,json=floatNinf,def=-inf" json:"float_ninf,omitempty" gorm:"column:float_ninf,omitempty"`
+	FloatPinf            *float32 `protobuf:"fixed32,21,opt,name=float_pinf,json=floatPinf,def=inf" json:"float_pinf,omitempty" gorm:"column:float_pinf,omitempty"`
+	FloatExp             *float32 `protobuf:"fixed32,22,opt,name=float_exp,json=floatExp,def=1e+09" json:"float_exp,omitempty" gorm:"column:float_exp,omitempty"`
+	DoubleNinf           *float64 `protobuf:"fixed64,23,opt,name=double_ninf,json=doubleNinf,def=-inf" json:"double_ninf,omitempty" gorm:"column:double_ninf,omitempty"`
+	DoublePinf           *float64 `protobuf:"fixed64,24,opt,name=double_pinf,json=doublePinf,def=inf" json:"double_pinf,omitempty" gorm:"column:double_pinf,omitempty"`
+	DoubleExp            *float64 `protobuf:"fixed64,25,opt,name=double_exp,json=doubleExp,def=1e+09" json:"double_exp,omitempty" gorm:"column:double_exp,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Request) Reset()         { *m = Request{} }
@@ -362,10 +362,10 @@ func (m *Request) GetDoubleExp() float64 {
 }
 
 type Request_SomeGroup struct {
-	GroupField           *int32   `protobuf:"varint,9,opt,name=group_field,json=groupField" json:"group_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GroupField           *int32   `protobuf:"varint,9,opt,name=group_field,json=groupField" json:"group_field,omitempty" gorm:"column:group_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Request_SomeGroup) Reset()         { *m = Request_SomeGroup{} }
@@ -401,12 +401,12 @@ func (m *Request_SomeGroup) GetGroupField() int32 {
 }
 
 type Reply struct {
-	Found                        []*Reply_Entry `protobuf:"bytes,1,rep,name=found" json:"found,omitempty"`
-	CompactKeys                  []int32        `protobuf:"varint,2,rep,packed,name=compact_keys,json=compactKeys" json:"compact_keys,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}       `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	Found                        []*Reply_Entry `protobuf:"bytes,1,rep,name=found" json:"found,omitempty" gorm:"column:found,omitempty"`
+	CompactKeys                  []int32        `protobuf:"varint,2,rep,packed,name=compact_keys,json=compactKeys" json:"compact_keys,omitempty" gorm:"column:compact_keys,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}       `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *Reply) Reset()         { *m = Reply{} }
@@ -457,12 +457,12 @@ func (m *Reply) GetCompactKeys() []int32 {
 }
 
 type Reply_Entry struct {
-	KeyThatNeeds_1234Camel_CasIng *int64   `protobuf:"varint,1,req,name=key_that_needs_1234camel_CasIng,json=keyThatNeeds1234camelCasIng" json:"key_that_needs_1234camel_CasIng,omitempty"`
-	Value                         *int64   `protobuf:"varint,2,opt,name=value,def=7" json:"value,omitempty"`
-	XMyFieldName_2                *int64   `protobuf:"varint,3,opt,name=_my_field_name_2,json=MyFieldName2" json:"_my_field_name_2,omitempty"`
-	XXX_NoUnkeyedLiteral          struct{} `json:"-"`
-	XXX_unrecognized              []byte   `json:"-"`
-	XXX_sizecache                 int32    `json:"-"`
+	KeyThatNeeds_1234Camel_CasIng *int64   `protobuf:"varint,1,req,name=key_that_needs_1234camel_CasIng,json=keyThatNeeds1234camelCasIng" json:"key_that_needs_1234camel_CasIng" gorm:"column:key_that_needs_1234camel_CasIng"`
+	Value                         *int64   `protobuf:"varint,2,opt,name=value,def=7" json:"value,omitempty" gorm:"column:value,omitempty"`
+	XMyFieldName_2                *int64   `protobuf:"varint,3,opt,name=_my_field_name_2,json=MyFieldName2" json:"_my_field_name_2,omitempty" gorm:"column:_my_field_name_2,omitempty"`
+	XXX_NoUnkeyedLiteral          struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized              []byte   `gorm:"-" json:"-"`
+	XXX_sizecache                 int32    `gorm:"-" json:"-"`
 }
 
 func (m *Reply_Entry) Reset()         { *m = Reply_Entry{} }
@@ -514,11 +514,11 @@ func (m *Reply_Entry) GetXMyFieldName_2() int64 {
 }
 
 type OtherBase struct {
-	Name                         *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	Name                         *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *OtherBase) Reset()         { *m = OtherBase{} }
@@ -562,9 +562,9 @@ func (m *OtherBase) GetName() string {
 }
 
 type ReplyExtensions struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *ReplyExtensions) Reset()         { *m = ReplyExtensions{} }
@@ -620,10 +620,10 @@ var E_ReplyExtensions_Donut = &proto.ExtensionDesc{
 }
 
 type OtherReplyExtensions struct {
-	Key                  *int32   `protobuf:"varint,1,opt,name=key" json:"key,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Key                  *int32   `protobuf:"varint,1,opt,name=key" json:"key,omitempty" gorm:"column:key,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *OtherReplyExtensions) Reset()         { *m = OtherReplyExtensions{} }
@@ -659,10 +659,10 @@ func (m *OtherReplyExtensions) GetKey() int32 {
 }
 
 type OldReply struct {
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `protobuf_messageset:"1" json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `protobuf_messageset:"1" gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *OldReply) Reset()         { *m = OldReply{} }
@@ -699,7 +699,7 @@ func (m *OldReply) XXX_DiscardUnknown() {
 var xxx_messageInfo_OldReply proto.InternalMessageInfo
 
 type Communique struct {
-	MakeMeCry *bool `protobuf:"varint,1,opt,name=make_me_cry,json=makeMeCry" json:"make_me_cry,omitempty"`
+	MakeMeCry *bool `protobuf:"varint,1,opt,name=make_me_cry,json=makeMeCry" json:"make_me_cry,omitempty" gorm:"column:make_me_cry,omitempty"`
 	// This is a oneof, called "union".
 	//
 	// Types that are valid to be assigned to Union:
@@ -714,9 +714,9 @@ type Communique struct {
 	//	*Communique_Msg
 	//	*Communique_Somegroup
 	Union                isCommunique_Union `protobuf_oneof:"union"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}           `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte             `gorm:"-" json:"-"`
+	XXX_sizecache        int32              `gorm:"-" json:"-"`
 }
 
 func (m *Communique) Reset()         { *m = Communique{} }
@@ -909,10 +909,10 @@ func (*Communique) XXX_OneofWrappers() []interface{} {
 }
 
 type Communique_SomeGroup struct {
-	Member               *string  `protobuf:"bytes,15,opt,name=member" json:"member,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Member               *string  `protobuf:"bytes,15,opt,name=member" json:"member,omitempty" gorm:"column:member,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Communique_SomeGroup) Reset()         { *m = Communique_SomeGroup{} }
@@ -948,9 +948,9 @@ func (m *Communique_SomeGroup) GetMember() string {
 }
 
 type Communique_Delta struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Communique_Delta) Reset()         { *m = Communique_Delta{} }

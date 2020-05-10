@@ -302,10 +302,10 @@ func (RepeatedEnum_Color) EnumDescriptor() ([]byte, []int) {
 }
 
 type GoEnum struct {
-	Foo                  *FOO     `protobuf:"varint,1,req,name=foo,enum=test_proto.FOO" json:"foo,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Foo                  *FOO     `protobuf:"varint,1,req,name=foo,enum=test_proto.FOO" json:"foo" gorm:"column:foo"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoEnum) Reset()         { *m = GoEnum{} }
@@ -341,11 +341,11 @@ func (m *GoEnum) GetFoo() FOO {
 }
 
 type GoTestField struct {
-	Label                *string  `protobuf:"bytes,1,req,name=Label" json:"Label,omitempty"`
-	Type                 *string  `protobuf:"bytes,2,req,name=Type" json:"Type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Label                *string  `protobuf:"bytes,1,req,name=Label" json:"Label" gorm:"column:Label"`
+	Type                 *string  `protobuf:"bytes,2,req,name=Type" json:"Type" gorm:"column:Type"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoTestField) Reset()         { *m = GoTestField{} }
@@ -389,97 +389,97 @@ func (m *GoTestField) GetType() string {
 
 type GoTest struct {
 	// Some typical parameters
-	Kind  *GoTest_KIND `protobuf:"varint,1,req,name=Kind,enum=test_proto.GoTest_KIND" json:"Kind,omitempty"`
-	Table *string      `protobuf:"bytes,2,opt,name=Table" json:"Table,omitempty"`
-	Param *int32       `protobuf:"varint,3,opt,name=Param" json:"Param,omitempty"`
+	Kind  *GoTest_KIND `protobuf:"varint,1,req,name=Kind,enum=test_proto.GoTest_KIND" json:"Kind" gorm:"column:Kind"`
+	Table *string      `protobuf:"bytes,2,opt,name=Table" json:"Table,omitempty" gorm:"column:Table,omitempty"`
+	Param *int32       `protobuf:"varint,3,opt,name=Param" json:"Param,omitempty" gorm:"column:Param,omitempty"`
 	// Required, repeated and optional foreign fields.
-	RequiredField *GoTestField   `protobuf:"bytes,4,req,name=RequiredField" json:"RequiredField,omitempty"`
-	RepeatedField []*GoTestField `protobuf:"bytes,5,rep,name=RepeatedField" json:"RepeatedField,omitempty"`
-	OptionalField *GoTestField   `protobuf:"bytes,6,opt,name=OptionalField" json:"OptionalField,omitempty"`
+	RequiredField *GoTestField   `protobuf:"bytes,4,req,name=RequiredField" json:"RequiredField" gorm:"column:RequiredField"`
+	RepeatedField []*GoTestField `protobuf:"bytes,5,rep,name=RepeatedField" json:"RepeatedField,omitempty" gorm:"column:RepeatedField,omitempty"`
+	OptionalField *GoTestField   `protobuf:"bytes,6,opt,name=OptionalField" json:"OptionalField,omitempty" gorm:"column:OptionalField,omitempty"`
 	// Required fields of all basic types
-	F_BoolRequired     *bool    `protobuf:"varint,10,req,name=F_Bool_required,json=FBoolRequired" json:"F_Bool_required,omitempty"`
-	F_Int32Required    *int32   `protobuf:"varint,11,req,name=F_Int32_required,json=FInt32Required" json:"F_Int32_required,omitempty"`
-	F_Int64Required    *int64   `protobuf:"varint,12,req,name=F_Int64_required,json=FInt64Required" json:"F_Int64_required,omitempty"`
-	F_Fixed32Required  *uint32  `protobuf:"fixed32,13,req,name=F_Fixed32_required,json=FFixed32Required" json:"F_Fixed32_required,omitempty"`
-	F_Fixed64Required  *uint64  `protobuf:"fixed64,14,req,name=F_Fixed64_required,json=FFixed64Required" json:"F_Fixed64_required,omitempty"`
-	F_Uint32Required   *uint32  `protobuf:"varint,15,req,name=F_Uint32_required,json=FUint32Required" json:"F_Uint32_required,omitempty"`
-	F_Uint64Required   *uint64  `protobuf:"varint,16,req,name=F_Uint64_required,json=FUint64Required" json:"F_Uint64_required,omitempty"`
-	F_FloatRequired    *float32 `protobuf:"fixed32,17,req,name=F_Float_required,json=FFloatRequired" json:"F_Float_required,omitempty"`
-	F_DoubleRequired   *float64 `protobuf:"fixed64,18,req,name=F_Double_required,json=FDoubleRequired" json:"F_Double_required,omitempty"`
-	F_StringRequired   *string  `protobuf:"bytes,19,req,name=F_String_required,json=FStringRequired" json:"F_String_required,omitempty"`
-	F_BytesRequired    []byte   `protobuf:"bytes,101,req,name=F_Bytes_required,json=FBytesRequired" json:"F_Bytes_required,omitempty"`
-	F_Sint32Required   *int32   `protobuf:"zigzag32,102,req,name=F_Sint32_required,json=FSint32Required" json:"F_Sint32_required,omitempty"`
-	F_Sint64Required   *int64   `protobuf:"zigzag64,103,req,name=F_Sint64_required,json=FSint64Required" json:"F_Sint64_required,omitempty"`
-	F_Sfixed32Required *int32   `protobuf:"fixed32,104,req,name=F_Sfixed32_required,json=FSfixed32Required" json:"F_Sfixed32_required,omitempty"`
-	F_Sfixed64Required *int64   `protobuf:"fixed64,105,req,name=F_Sfixed64_required,json=FSfixed64Required" json:"F_Sfixed64_required,omitempty"`
+	F_BoolRequired     *bool    `protobuf:"varint,10,req,name=F_Bool_required,json=FBoolRequired" json:"F_Bool_required" gorm:"column:F_Bool_required"`
+	F_Int32Required    *int32   `protobuf:"varint,11,req,name=F_Int32_required,json=FInt32Required" json:"F_Int32_required" gorm:"column:F_Int32_required"`
+	F_Int64Required    *int64   `protobuf:"varint,12,req,name=F_Int64_required,json=FInt64Required" json:"F_Int64_required" gorm:"column:F_Int64_required"`
+	F_Fixed32Required  *uint32  `protobuf:"fixed32,13,req,name=F_Fixed32_required,json=FFixed32Required" json:"F_Fixed32_required" gorm:"column:F_Fixed32_required"`
+	F_Fixed64Required  *uint64  `protobuf:"fixed64,14,req,name=F_Fixed64_required,json=FFixed64Required" json:"F_Fixed64_required" gorm:"column:F_Fixed64_required"`
+	F_Uint32Required   *uint32  `protobuf:"varint,15,req,name=F_Uint32_required,json=FUint32Required" json:"F_Uint32_required" gorm:"column:F_Uint32_required"`
+	F_Uint64Required   *uint64  `protobuf:"varint,16,req,name=F_Uint64_required,json=FUint64Required" json:"F_Uint64_required" gorm:"column:F_Uint64_required"`
+	F_FloatRequired    *float32 `protobuf:"fixed32,17,req,name=F_Float_required,json=FFloatRequired" json:"F_Float_required" gorm:"column:F_Float_required"`
+	F_DoubleRequired   *float64 `protobuf:"fixed64,18,req,name=F_Double_required,json=FDoubleRequired" json:"F_Double_required" gorm:"column:F_Double_required"`
+	F_StringRequired   *string  `protobuf:"bytes,19,req,name=F_String_required,json=FStringRequired" json:"F_String_required" gorm:"column:F_String_required"`
+	F_BytesRequired    []byte   `protobuf:"bytes,101,req,name=F_Bytes_required,json=FBytesRequired" json:"F_Bytes_required" gorm:"column:F_Bytes_required"`
+	F_Sint32Required   *int32   `protobuf:"zigzag32,102,req,name=F_Sint32_required,json=FSint32Required" json:"F_Sint32_required" gorm:"column:F_Sint32_required"`
+	F_Sint64Required   *int64   `protobuf:"zigzag64,103,req,name=F_Sint64_required,json=FSint64Required" json:"F_Sint64_required" gorm:"column:F_Sint64_required"`
+	F_Sfixed32Required *int32   `protobuf:"fixed32,104,req,name=F_Sfixed32_required,json=FSfixed32Required" json:"F_Sfixed32_required" gorm:"column:F_Sfixed32_required"`
+	F_Sfixed64Required *int64   `protobuf:"fixed64,105,req,name=F_Sfixed64_required,json=FSfixed64Required" json:"F_Sfixed64_required" gorm:"column:F_Sfixed64_required"`
 	// Repeated fields of all basic types
-	F_BoolRepeated     []bool    `protobuf:"varint,20,rep,name=F_Bool_repeated,json=FBoolRepeated" json:"F_Bool_repeated,omitempty"`
-	F_Int32Repeated    []int32   `protobuf:"varint,21,rep,name=F_Int32_repeated,json=FInt32Repeated" json:"F_Int32_repeated,omitempty"`
-	F_Int64Repeated    []int64   `protobuf:"varint,22,rep,name=F_Int64_repeated,json=FInt64Repeated" json:"F_Int64_repeated,omitempty"`
-	F_Fixed32Repeated  []uint32  `protobuf:"fixed32,23,rep,name=F_Fixed32_repeated,json=FFixed32Repeated" json:"F_Fixed32_repeated,omitempty"`
-	F_Fixed64Repeated  []uint64  `protobuf:"fixed64,24,rep,name=F_Fixed64_repeated,json=FFixed64Repeated" json:"F_Fixed64_repeated,omitempty"`
-	F_Uint32Repeated   []uint32  `protobuf:"varint,25,rep,name=F_Uint32_repeated,json=FUint32Repeated" json:"F_Uint32_repeated,omitempty"`
-	F_Uint64Repeated   []uint64  `protobuf:"varint,26,rep,name=F_Uint64_repeated,json=FUint64Repeated" json:"F_Uint64_repeated,omitempty"`
-	F_FloatRepeated    []float32 `protobuf:"fixed32,27,rep,name=F_Float_repeated,json=FFloatRepeated" json:"F_Float_repeated,omitempty"`
-	F_DoubleRepeated   []float64 `protobuf:"fixed64,28,rep,name=F_Double_repeated,json=FDoubleRepeated" json:"F_Double_repeated,omitempty"`
-	F_StringRepeated   []string  `protobuf:"bytes,29,rep,name=F_String_repeated,json=FStringRepeated" json:"F_String_repeated,omitempty"`
-	F_BytesRepeated    [][]byte  `protobuf:"bytes,201,rep,name=F_Bytes_repeated,json=FBytesRepeated" json:"F_Bytes_repeated,omitempty"`
-	F_Sint32Repeated   []int32   `protobuf:"zigzag32,202,rep,name=F_Sint32_repeated,json=FSint32Repeated" json:"F_Sint32_repeated,omitempty"`
-	F_Sint64Repeated   []int64   `protobuf:"zigzag64,203,rep,name=F_Sint64_repeated,json=FSint64Repeated" json:"F_Sint64_repeated,omitempty"`
-	F_Sfixed32Repeated []int32   `protobuf:"fixed32,204,rep,name=F_Sfixed32_repeated,json=FSfixed32Repeated" json:"F_Sfixed32_repeated,omitempty"`
-	F_Sfixed64Repeated []int64   `protobuf:"fixed64,205,rep,name=F_Sfixed64_repeated,json=FSfixed64Repeated" json:"F_Sfixed64_repeated,omitempty"`
+	F_BoolRepeated     []bool    `protobuf:"varint,20,rep,name=F_Bool_repeated,json=FBoolRepeated" json:"F_Bool_repeated,omitempty" gorm:"column:F_Bool_repeated,omitempty"`
+	F_Int32Repeated    []int32   `protobuf:"varint,21,rep,name=F_Int32_repeated,json=FInt32Repeated" json:"F_Int32_repeated,omitempty" gorm:"column:F_Int32_repeated,omitempty"`
+	F_Int64Repeated    []int64   `protobuf:"varint,22,rep,name=F_Int64_repeated,json=FInt64Repeated" json:"F_Int64_repeated,omitempty" gorm:"column:F_Int64_repeated,omitempty"`
+	F_Fixed32Repeated  []uint32  `protobuf:"fixed32,23,rep,name=F_Fixed32_repeated,json=FFixed32Repeated" json:"F_Fixed32_repeated,omitempty" gorm:"column:F_Fixed32_repeated,omitempty"`
+	F_Fixed64Repeated  []uint64  `protobuf:"fixed64,24,rep,name=F_Fixed64_repeated,json=FFixed64Repeated" json:"F_Fixed64_repeated,omitempty" gorm:"column:F_Fixed64_repeated,omitempty"`
+	F_Uint32Repeated   []uint32  `protobuf:"varint,25,rep,name=F_Uint32_repeated,json=FUint32Repeated" json:"F_Uint32_repeated,omitempty" gorm:"column:F_Uint32_repeated,omitempty"`
+	F_Uint64Repeated   []uint64  `protobuf:"varint,26,rep,name=F_Uint64_repeated,json=FUint64Repeated" json:"F_Uint64_repeated,omitempty" gorm:"column:F_Uint64_repeated,omitempty"`
+	F_FloatRepeated    []float32 `protobuf:"fixed32,27,rep,name=F_Float_repeated,json=FFloatRepeated" json:"F_Float_repeated,omitempty" gorm:"column:F_Float_repeated,omitempty"`
+	F_DoubleRepeated   []float64 `protobuf:"fixed64,28,rep,name=F_Double_repeated,json=FDoubleRepeated" json:"F_Double_repeated,omitempty" gorm:"column:F_Double_repeated,omitempty"`
+	F_StringRepeated   []string  `protobuf:"bytes,29,rep,name=F_String_repeated,json=FStringRepeated" json:"F_String_repeated,omitempty" gorm:"column:F_String_repeated,omitempty"`
+	F_BytesRepeated    [][]byte  `protobuf:"bytes,201,rep,name=F_Bytes_repeated,json=FBytesRepeated" json:"F_Bytes_repeated,omitempty" gorm:"column:F_Bytes_repeated,omitempty"`
+	F_Sint32Repeated   []int32   `protobuf:"zigzag32,202,rep,name=F_Sint32_repeated,json=FSint32Repeated" json:"F_Sint32_repeated,omitempty" gorm:"column:F_Sint32_repeated,omitempty"`
+	F_Sint64Repeated   []int64   `protobuf:"zigzag64,203,rep,name=F_Sint64_repeated,json=FSint64Repeated" json:"F_Sint64_repeated,omitempty" gorm:"column:F_Sint64_repeated,omitempty"`
+	F_Sfixed32Repeated []int32   `protobuf:"fixed32,204,rep,name=F_Sfixed32_repeated,json=FSfixed32Repeated" json:"F_Sfixed32_repeated,omitempty" gorm:"column:F_Sfixed32_repeated,omitempty"`
+	F_Sfixed64Repeated []int64   `protobuf:"fixed64,205,rep,name=F_Sfixed64_repeated,json=FSfixed64Repeated" json:"F_Sfixed64_repeated,omitempty" gorm:"column:F_Sfixed64_repeated,omitempty"`
 	// Optional fields of all basic types
-	F_BoolOptional     *bool    `protobuf:"varint,30,opt,name=F_Bool_optional,json=FBoolOptional" json:"F_Bool_optional,omitempty"`
-	F_Int32Optional    *int32   `protobuf:"varint,31,opt,name=F_Int32_optional,json=FInt32Optional" json:"F_Int32_optional,omitempty"`
-	F_Int64Optional    *int64   `protobuf:"varint,32,opt,name=F_Int64_optional,json=FInt64Optional" json:"F_Int64_optional,omitempty"`
-	F_Fixed32Optional  *uint32  `protobuf:"fixed32,33,opt,name=F_Fixed32_optional,json=FFixed32Optional" json:"F_Fixed32_optional,omitempty"`
-	F_Fixed64Optional  *uint64  `protobuf:"fixed64,34,opt,name=F_Fixed64_optional,json=FFixed64Optional" json:"F_Fixed64_optional,omitempty"`
-	F_Uint32Optional   *uint32  `protobuf:"varint,35,opt,name=F_Uint32_optional,json=FUint32Optional" json:"F_Uint32_optional,omitempty"`
-	F_Uint64Optional   *uint64  `protobuf:"varint,36,opt,name=F_Uint64_optional,json=FUint64Optional" json:"F_Uint64_optional,omitempty"`
-	F_FloatOptional    *float32 `protobuf:"fixed32,37,opt,name=F_Float_optional,json=FFloatOptional" json:"F_Float_optional,omitempty"`
-	F_DoubleOptional   *float64 `protobuf:"fixed64,38,opt,name=F_Double_optional,json=FDoubleOptional" json:"F_Double_optional,omitempty"`
-	F_StringOptional   *string  `protobuf:"bytes,39,opt,name=F_String_optional,json=FStringOptional" json:"F_String_optional,omitempty"`
-	F_BytesOptional    []byte   `protobuf:"bytes,301,opt,name=F_Bytes_optional,json=FBytesOptional" json:"F_Bytes_optional,omitempty"`
-	F_Sint32Optional   *int32   `protobuf:"zigzag32,302,opt,name=F_Sint32_optional,json=FSint32Optional" json:"F_Sint32_optional,omitempty"`
-	F_Sint64Optional   *int64   `protobuf:"zigzag64,303,opt,name=F_Sint64_optional,json=FSint64Optional" json:"F_Sint64_optional,omitempty"`
-	F_Sfixed32Optional *int32   `protobuf:"fixed32,304,opt,name=F_Sfixed32_optional,json=FSfixed32Optional" json:"F_Sfixed32_optional,omitempty"`
-	F_Sfixed64Optional *int64   `protobuf:"fixed64,305,opt,name=F_Sfixed64_optional,json=FSfixed64Optional" json:"F_Sfixed64_optional,omitempty"`
+	F_BoolOptional     *bool    `protobuf:"varint,30,opt,name=F_Bool_optional,json=FBoolOptional" json:"F_Bool_optional,omitempty" gorm:"column:F_Bool_optional,omitempty"`
+	F_Int32Optional    *int32   `protobuf:"varint,31,opt,name=F_Int32_optional,json=FInt32Optional" json:"F_Int32_optional,omitempty" gorm:"column:F_Int32_optional,omitempty"`
+	F_Int64Optional    *int64   `protobuf:"varint,32,opt,name=F_Int64_optional,json=FInt64Optional" json:"F_Int64_optional,omitempty" gorm:"column:F_Int64_optional,omitempty"`
+	F_Fixed32Optional  *uint32  `protobuf:"fixed32,33,opt,name=F_Fixed32_optional,json=FFixed32Optional" json:"F_Fixed32_optional,omitempty" gorm:"column:F_Fixed32_optional,omitempty"`
+	F_Fixed64Optional  *uint64  `protobuf:"fixed64,34,opt,name=F_Fixed64_optional,json=FFixed64Optional" json:"F_Fixed64_optional,omitempty" gorm:"column:F_Fixed64_optional,omitempty"`
+	F_Uint32Optional   *uint32  `protobuf:"varint,35,opt,name=F_Uint32_optional,json=FUint32Optional" json:"F_Uint32_optional,omitempty" gorm:"column:F_Uint32_optional,omitempty"`
+	F_Uint64Optional   *uint64  `protobuf:"varint,36,opt,name=F_Uint64_optional,json=FUint64Optional" json:"F_Uint64_optional,omitempty" gorm:"column:F_Uint64_optional,omitempty"`
+	F_FloatOptional    *float32 `protobuf:"fixed32,37,opt,name=F_Float_optional,json=FFloatOptional" json:"F_Float_optional,omitempty" gorm:"column:F_Float_optional,omitempty"`
+	F_DoubleOptional   *float64 `protobuf:"fixed64,38,opt,name=F_Double_optional,json=FDoubleOptional" json:"F_Double_optional,omitempty" gorm:"column:F_Double_optional,omitempty"`
+	F_StringOptional   *string  `protobuf:"bytes,39,opt,name=F_String_optional,json=FStringOptional" json:"F_String_optional,omitempty" gorm:"column:F_String_optional,omitempty"`
+	F_BytesOptional    []byte   `protobuf:"bytes,301,opt,name=F_Bytes_optional,json=FBytesOptional" json:"F_Bytes_optional,omitempty" gorm:"column:F_Bytes_optional,omitempty"`
+	F_Sint32Optional   *int32   `protobuf:"zigzag32,302,opt,name=F_Sint32_optional,json=FSint32Optional" json:"F_Sint32_optional,omitempty" gorm:"column:F_Sint32_optional,omitempty"`
+	F_Sint64Optional   *int64   `protobuf:"zigzag64,303,opt,name=F_Sint64_optional,json=FSint64Optional" json:"F_Sint64_optional,omitempty" gorm:"column:F_Sint64_optional,omitempty"`
+	F_Sfixed32Optional *int32   `protobuf:"fixed32,304,opt,name=F_Sfixed32_optional,json=FSfixed32Optional" json:"F_Sfixed32_optional,omitempty" gorm:"column:F_Sfixed32_optional,omitempty"`
+	F_Sfixed64Optional *int64   `protobuf:"fixed64,305,opt,name=F_Sfixed64_optional,json=FSfixed64Optional" json:"F_Sfixed64_optional,omitempty" gorm:"column:F_Sfixed64_optional,omitempty"`
 	// Default-valued fields of all basic types
-	F_BoolDefaulted     *bool    `protobuf:"varint,40,opt,name=F_Bool_defaulted,json=FBoolDefaulted,def=1" json:"F_Bool_defaulted,omitempty"`
-	F_Int32Defaulted    *int32   `protobuf:"varint,41,opt,name=F_Int32_defaulted,json=FInt32Defaulted,def=32" json:"F_Int32_defaulted,omitempty"`
-	F_Int64Defaulted    *int64   `protobuf:"varint,42,opt,name=F_Int64_defaulted,json=FInt64Defaulted,def=64" json:"F_Int64_defaulted,omitempty"`
-	F_Fixed32Defaulted  *uint32  `protobuf:"fixed32,43,opt,name=F_Fixed32_defaulted,json=FFixed32Defaulted,def=320" json:"F_Fixed32_defaulted,omitempty"`
-	F_Fixed64Defaulted  *uint64  `protobuf:"fixed64,44,opt,name=F_Fixed64_defaulted,json=FFixed64Defaulted,def=640" json:"F_Fixed64_defaulted,omitempty"`
-	F_Uint32Defaulted   *uint32  `protobuf:"varint,45,opt,name=F_Uint32_defaulted,json=FUint32Defaulted,def=3200" json:"F_Uint32_defaulted,omitempty"`
-	F_Uint64Defaulted   *uint64  `protobuf:"varint,46,opt,name=F_Uint64_defaulted,json=FUint64Defaulted,def=6400" json:"F_Uint64_defaulted,omitempty"`
-	F_FloatDefaulted    *float32 `protobuf:"fixed32,47,opt,name=F_Float_defaulted,json=FFloatDefaulted,def=314159" json:"F_Float_defaulted,omitempty"`
-	F_DoubleDefaulted   *float64 `protobuf:"fixed64,48,opt,name=F_Double_defaulted,json=FDoubleDefaulted,def=271828" json:"F_Double_defaulted,omitempty"`
-	F_StringDefaulted   *string  `protobuf:"bytes,49,opt,name=F_String_defaulted,json=FStringDefaulted,def=hello, \"world!\"\n" json:"F_String_defaulted,omitempty"`
-	F_BytesDefaulted    []byte   `protobuf:"bytes,401,opt,name=F_Bytes_defaulted,json=FBytesDefaulted,def=Bignose" json:"F_Bytes_defaulted,omitempty"`
-	F_Sint32Defaulted   *int32   `protobuf:"zigzag32,402,opt,name=F_Sint32_defaulted,json=FSint32Defaulted,def=-32" json:"F_Sint32_defaulted,omitempty"`
-	F_Sint64Defaulted   *int64   `protobuf:"zigzag64,403,opt,name=F_Sint64_defaulted,json=FSint64Defaulted,def=-64" json:"F_Sint64_defaulted,omitempty"`
-	F_Sfixed32Defaulted *int32   `protobuf:"fixed32,404,opt,name=F_Sfixed32_defaulted,json=FSfixed32Defaulted,def=-32" json:"F_Sfixed32_defaulted,omitempty"`
-	F_Sfixed64Defaulted *int64   `protobuf:"fixed64,405,opt,name=F_Sfixed64_defaulted,json=FSfixed64Defaulted,def=-64" json:"F_Sfixed64_defaulted,omitempty"`
+	F_BoolDefaulted     *bool    `protobuf:"varint,40,opt,name=F_Bool_defaulted,json=FBoolDefaulted,def=1" json:"F_Bool_defaulted,omitempty" gorm:"column:F_Bool_defaulted,omitempty"`
+	F_Int32Defaulted    *int32   `protobuf:"varint,41,opt,name=F_Int32_defaulted,json=FInt32Defaulted,def=32" json:"F_Int32_defaulted,omitempty" gorm:"column:F_Int32_defaulted,omitempty"`
+	F_Int64Defaulted    *int64   `protobuf:"varint,42,opt,name=F_Int64_defaulted,json=FInt64Defaulted,def=64" json:"F_Int64_defaulted,omitempty" gorm:"column:F_Int64_defaulted,omitempty"`
+	F_Fixed32Defaulted  *uint32  `protobuf:"fixed32,43,opt,name=F_Fixed32_defaulted,json=FFixed32Defaulted,def=320" json:"F_Fixed32_defaulted,omitempty" gorm:"column:F_Fixed32_defaulted,omitempty"`
+	F_Fixed64Defaulted  *uint64  `protobuf:"fixed64,44,opt,name=F_Fixed64_defaulted,json=FFixed64Defaulted,def=640" json:"F_Fixed64_defaulted,omitempty" gorm:"column:F_Fixed64_defaulted,omitempty"`
+	F_Uint32Defaulted   *uint32  `protobuf:"varint,45,opt,name=F_Uint32_defaulted,json=FUint32Defaulted,def=3200" json:"F_Uint32_defaulted,omitempty" gorm:"column:F_Uint32_defaulted,omitempty"`
+	F_Uint64Defaulted   *uint64  `protobuf:"varint,46,opt,name=F_Uint64_defaulted,json=FUint64Defaulted,def=6400" json:"F_Uint64_defaulted,omitempty" gorm:"column:F_Uint64_defaulted,omitempty"`
+	F_FloatDefaulted    *float32 `protobuf:"fixed32,47,opt,name=F_Float_defaulted,json=FFloatDefaulted,def=314159" json:"F_Float_defaulted,omitempty" gorm:"column:F_Float_defaulted,omitempty"`
+	F_DoubleDefaulted   *float64 `protobuf:"fixed64,48,opt,name=F_Double_defaulted,json=FDoubleDefaulted,def=271828" json:"F_Double_defaulted,omitempty" gorm:"column:F_Double_defaulted,omitempty"`
+	F_StringDefaulted   *string  `protobuf:"bytes,49,opt,name=F_String_defaulted,json=FStringDefaulted,def=hello, \"world!\"\n" json:"F_String_defaulted,omitempty" gorm:"column:F_String_defaulted,omitempty"`
+	F_BytesDefaulted    []byte   `protobuf:"bytes,401,opt,name=F_Bytes_defaulted,json=FBytesDefaulted,def=Bignose" json:"F_Bytes_defaulted,omitempty" gorm:"column:F_Bytes_defaulted,omitempty"`
+	F_Sint32Defaulted   *int32   `protobuf:"zigzag32,402,opt,name=F_Sint32_defaulted,json=FSint32Defaulted,def=-32" json:"F_Sint32_defaulted,omitempty" gorm:"column:F_Sint32_defaulted,omitempty"`
+	F_Sint64Defaulted   *int64   `protobuf:"zigzag64,403,opt,name=F_Sint64_defaulted,json=FSint64Defaulted,def=-64" json:"F_Sint64_defaulted,omitempty" gorm:"column:F_Sint64_defaulted,omitempty"`
+	F_Sfixed32Defaulted *int32   `protobuf:"fixed32,404,opt,name=F_Sfixed32_defaulted,json=FSfixed32Defaulted,def=-32" json:"F_Sfixed32_defaulted,omitempty" gorm:"column:F_Sfixed32_defaulted,omitempty"`
+	F_Sfixed64Defaulted *int64   `protobuf:"fixed64,405,opt,name=F_Sfixed64_defaulted,json=FSfixed64Defaulted,def=-64" json:"F_Sfixed64_defaulted,omitempty" gorm:"column:F_Sfixed64_defaulted,omitempty"`
 	// Packed repeated fields (no string or bytes).
-	F_BoolRepeatedPacked     []bool                  `protobuf:"varint,50,rep,packed,name=F_Bool_repeated_packed,json=FBoolRepeatedPacked" json:"F_Bool_repeated_packed,omitempty"`
-	F_Int32RepeatedPacked    []int32                 `protobuf:"varint,51,rep,packed,name=F_Int32_repeated_packed,json=FInt32RepeatedPacked" json:"F_Int32_repeated_packed,omitempty"`
-	F_Int64RepeatedPacked    []int64                 `protobuf:"varint,52,rep,packed,name=F_Int64_repeated_packed,json=FInt64RepeatedPacked" json:"F_Int64_repeated_packed,omitempty"`
-	F_Fixed32RepeatedPacked  []uint32                `protobuf:"fixed32,53,rep,packed,name=F_Fixed32_repeated_packed,json=FFixed32RepeatedPacked" json:"F_Fixed32_repeated_packed,omitempty"`
-	F_Fixed64RepeatedPacked  []uint64                `protobuf:"fixed64,54,rep,packed,name=F_Fixed64_repeated_packed,json=FFixed64RepeatedPacked" json:"F_Fixed64_repeated_packed,omitempty"`
-	F_Uint32RepeatedPacked   []uint32                `protobuf:"varint,55,rep,packed,name=F_Uint32_repeated_packed,json=FUint32RepeatedPacked" json:"F_Uint32_repeated_packed,omitempty"`
-	F_Uint64RepeatedPacked   []uint64                `protobuf:"varint,56,rep,packed,name=F_Uint64_repeated_packed,json=FUint64RepeatedPacked" json:"F_Uint64_repeated_packed,omitempty"`
-	F_FloatRepeatedPacked    []float32               `protobuf:"fixed32,57,rep,packed,name=F_Float_repeated_packed,json=FFloatRepeatedPacked" json:"F_Float_repeated_packed,omitempty"`
-	F_DoubleRepeatedPacked   []float64               `protobuf:"fixed64,58,rep,packed,name=F_Double_repeated_packed,json=FDoubleRepeatedPacked" json:"F_Double_repeated_packed,omitempty"`
-	F_Sint32RepeatedPacked   []int32                 `protobuf:"zigzag32,502,rep,packed,name=F_Sint32_repeated_packed,json=FSint32RepeatedPacked" json:"F_Sint32_repeated_packed,omitempty"`
-	F_Sint64RepeatedPacked   []int64                 `protobuf:"zigzag64,503,rep,packed,name=F_Sint64_repeated_packed,json=FSint64RepeatedPacked" json:"F_Sint64_repeated_packed,omitempty"`
-	F_Sfixed32RepeatedPacked []int32                 `protobuf:"fixed32,504,rep,packed,name=F_Sfixed32_repeated_packed,json=FSfixed32RepeatedPacked" json:"F_Sfixed32_repeated_packed,omitempty"`
-	F_Sfixed64RepeatedPacked []int64                 `protobuf:"fixed64,505,rep,packed,name=F_Sfixed64_repeated_packed,json=FSfixed64RepeatedPacked" json:"F_Sfixed64_repeated_packed,omitempty"`
-	Requiredgroup            *GoTest_RequiredGroup   `protobuf:"group,70,req,name=RequiredGroup,json=requiredgroup" json:"requiredgroup,omitempty"`
-	Repeatedgroup            []*GoTest_RepeatedGroup `protobuf:"group,80,rep,name=RepeatedGroup,json=repeatedgroup" json:"repeatedgroup,omitempty"`
-	Optionalgroup            *GoTest_OptionalGroup   `protobuf:"group,90,opt,name=OptionalGroup,json=optionalgroup" json:"optionalgroup,omitempty"`
-	XXX_NoUnkeyedLiteral     struct{}                `json:"-"`
-	XXX_unrecognized         []byte                  `json:"-"`
-	XXX_sizecache            int32                   `json:"-"`
+	F_BoolRepeatedPacked     []bool                  `protobuf:"varint,50,rep,packed,name=F_Bool_repeated_packed,json=FBoolRepeatedPacked" json:"F_Bool_repeated_packed,omitempty" gorm:"column:F_Bool_repeated_packed,omitempty"`
+	F_Int32RepeatedPacked    []int32                 `protobuf:"varint,51,rep,packed,name=F_Int32_repeated_packed,json=FInt32RepeatedPacked" json:"F_Int32_repeated_packed,omitempty" gorm:"column:F_Int32_repeated_packed,omitempty"`
+	F_Int64RepeatedPacked    []int64                 `protobuf:"varint,52,rep,packed,name=F_Int64_repeated_packed,json=FInt64RepeatedPacked" json:"F_Int64_repeated_packed,omitempty" gorm:"column:F_Int64_repeated_packed,omitempty"`
+	F_Fixed32RepeatedPacked  []uint32                `protobuf:"fixed32,53,rep,packed,name=F_Fixed32_repeated_packed,json=FFixed32RepeatedPacked" json:"F_Fixed32_repeated_packed,omitempty" gorm:"column:F_Fixed32_repeated_packed,omitempty"`
+	F_Fixed64RepeatedPacked  []uint64                `protobuf:"fixed64,54,rep,packed,name=F_Fixed64_repeated_packed,json=FFixed64RepeatedPacked" json:"F_Fixed64_repeated_packed,omitempty" gorm:"column:F_Fixed64_repeated_packed,omitempty"`
+	F_Uint32RepeatedPacked   []uint32                `protobuf:"varint,55,rep,packed,name=F_Uint32_repeated_packed,json=FUint32RepeatedPacked" json:"F_Uint32_repeated_packed,omitempty" gorm:"column:F_Uint32_repeated_packed,omitempty"`
+	F_Uint64RepeatedPacked   []uint64                `protobuf:"varint,56,rep,packed,name=F_Uint64_repeated_packed,json=FUint64RepeatedPacked" json:"F_Uint64_repeated_packed,omitempty" gorm:"column:F_Uint64_repeated_packed,omitempty"`
+	F_FloatRepeatedPacked    []float32               `protobuf:"fixed32,57,rep,packed,name=F_Float_repeated_packed,json=FFloatRepeatedPacked" json:"F_Float_repeated_packed,omitempty" gorm:"column:F_Float_repeated_packed,omitempty"`
+	F_DoubleRepeatedPacked   []float64               `protobuf:"fixed64,58,rep,packed,name=F_Double_repeated_packed,json=FDoubleRepeatedPacked" json:"F_Double_repeated_packed,omitempty" gorm:"column:F_Double_repeated_packed,omitempty"`
+	F_Sint32RepeatedPacked   []int32                 `protobuf:"zigzag32,502,rep,packed,name=F_Sint32_repeated_packed,json=FSint32RepeatedPacked" json:"F_Sint32_repeated_packed,omitempty" gorm:"column:F_Sint32_repeated_packed,omitempty"`
+	F_Sint64RepeatedPacked   []int64                 `protobuf:"zigzag64,503,rep,packed,name=F_Sint64_repeated_packed,json=FSint64RepeatedPacked" json:"F_Sint64_repeated_packed,omitempty" gorm:"column:F_Sint64_repeated_packed,omitempty"`
+	F_Sfixed32RepeatedPacked []int32                 `protobuf:"fixed32,504,rep,packed,name=F_Sfixed32_repeated_packed,json=FSfixed32RepeatedPacked" json:"F_Sfixed32_repeated_packed,omitempty" gorm:"column:F_Sfixed32_repeated_packed,omitempty"`
+	F_Sfixed64RepeatedPacked []int64                 `protobuf:"fixed64,505,rep,packed,name=F_Sfixed64_repeated_packed,json=FSfixed64RepeatedPacked" json:"F_Sfixed64_repeated_packed,omitempty" gorm:"column:F_Sfixed64_repeated_packed,omitempty"`
+	Requiredgroup            *GoTest_RequiredGroup   `protobuf:"group,70,req,name=RequiredGroup,json=requiredgroup" json:"requiredgroup" gorm:"column:requiredgroup"`
+	Repeatedgroup            []*GoTest_RepeatedGroup `protobuf:"group,80,rep,name=RepeatedGroup,json=repeatedgroup" json:"repeatedgroup,omitempty" gorm:"column:repeatedgroup,omitempty"`
+	Optionalgroup            *GoTest_OptionalGroup   `protobuf:"group,90,opt,name=OptionalGroup,json=optionalgroup" json:"optionalgroup,omitempty" gorm:"column:optionalgroup,omitempty"`
+	XXX_NoUnkeyedLiteral     struct{}                `gorm:"-" json:"-"`
+	XXX_unrecognized         []byte                  `gorm:"-" json:"-"`
+	XXX_sizecache            int32                   `gorm:"-" json:"-"`
 }
 
 func (m *GoTest) Reset()         { *m = GoTest{} }
@@ -1101,10 +1101,10 @@ func (m *GoTest) GetOptionalgroup() *GoTest_OptionalGroup {
 
 // Required, repeated, and optional groups.
 type GoTest_RequiredGroup struct {
-	RequiredField        *string  `protobuf:"bytes,71,req,name=RequiredField" json:"RequiredField,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RequiredField        *string  `protobuf:"bytes,71,req,name=RequiredField" json:"RequiredField" gorm:"column:RequiredField"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoTest_RequiredGroup) Reset()         { *m = GoTest_RequiredGroup{} }
@@ -1140,10 +1140,10 @@ func (m *GoTest_RequiredGroup) GetRequiredField() string {
 }
 
 type GoTest_RepeatedGroup struct {
-	RequiredField        *string  `protobuf:"bytes,81,req,name=RequiredField" json:"RequiredField,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RequiredField        *string  `protobuf:"bytes,81,req,name=RequiredField" json:"RequiredField" gorm:"column:RequiredField"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoTest_RepeatedGroup) Reset()         { *m = GoTest_RepeatedGroup{} }
@@ -1179,10 +1179,10 @@ func (m *GoTest_RepeatedGroup) GetRequiredField() string {
 }
 
 type GoTest_OptionalGroup struct {
-	RequiredField        *string  `protobuf:"bytes,91,req,name=RequiredField" json:"RequiredField,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RequiredField        *string  `protobuf:"bytes,91,req,name=RequiredField" json:"RequiredField" gorm:"column:RequiredField"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoTest_OptionalGroup) Reset()         { *m = GoTest_OptionalGroup{} }
@@ -1219,10 +1219,10 @@ func (m *GoTest_OptionalGroup) GetRequiredField() string {
 
 // For testing a group containing a required field.
 type GoTestRequiredGroupField struct {
-	Group                *GoTestRequiredGroupField_Group `protobuf:"group,1,req,name=Group,json=group" json:"group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                        `json:"-"`
-	XXX_unrecognized     []byte                          `json:"-"`
-	XXX_sizecache        int32                           `json:"-"`
+	Group                *GoTestRequiredGroupField_Group `protobuf:"group,1,req,name=Group,json=group" json:"group" gorm:"column:group"`
+	XXX_NoUnkeyedLiteral struct{}                        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                          `gorm:"-" json:"-"`
+	XXX_sizecache        int32                           `gorm:"-" json:"-"`
 }
 
 func (m *GoTestRequiredGroupField) Reset()         { *m = GoTestRequiredGroupField{} }
@@ -1258,10 +1258,10 @@ func (m *GoTestRequiredGroupField) GetGroup() *GoTestRequiredGroupField_Group {
 }
 
 type GoTestRequiredGroupField_Group struct {
-	Field                *int32   `protobuf:"varint,2,req,name=Field" json:"Field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Field                *int32   `protobuf:"varint,2,req,name=Field" json:"Field" gorm:"column:Field"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoTestRequiredGroupField_Group) Reset()         { *m = GoTestRequiredGroupField_Group{} }
@@ -1300,14 +1300,14 @@ func (m *GoTestRequiredGroupField_Group) GetField() int32 {
 // Numbers are all big, larger than tag numbers in GoTestField,
 // the message used in the corresponding test.
 type GoSkipTest struct {
-	SkipInt32            *int32                `protobuf:"varint,11,req,name=skip_int32,json=skipInt32" json:"skip_int32,omitempty"`
-	SkipFixed32          *uint32               `protobuf:"fixed32,12,req,name=skip_fixed32,json=skipFixed32" json:"skip_fixed32,omitempty"`
-	SkipFixed64          *uint64               `protobuf:"fixed64,13,req,name=skip_fixed64,json=skipFixed64" json:"skip_fixed64,omitempty"`
-	SkipString           *string               `protobuf:"bytes,14,req,name=skip_string,json=skipString" json:"skip_string,omitempty"`
-	Skipgroup            *GoSkipTest_SkipGroup `protobuf:"group,15,req,name=SkipGroup,json=skipgroup" json:"skipgroup,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
-	XXX_unrecognized     []byte                `json:"-"`
-	XXX_sizecache        int32                 `json:"-"`
+	SkipInt32            *int32                `protobuf:"varint,11,req,name=skip_int32,json=skipInt32" json:"skip_int32" gorm:"column:skip_int32"`
+	SkipFixed32          *uint32               `protobuf:"fixed32,12,req,name=skip_fixed32,json=skipFixed32" json:"skip_fixed32" gorm:"column:skip_fixed32"`
+	SkipFixed64          *uint64               `protobuf:"fixed64,13,req,name=skip_fixed64,json=skipFixed64" json:"skip_fixed64" gorm:"column:skip_fixed64"`
+	SkipString           *string               `protobuf:"bytes,14,req,name=skip_string,json=skipString" json:"skip_string" gorm:"column:skip_string"`
+	Skipgroup            *GoSkipTest_SkipGroup `protobuf:"group,15,req,name=SkipGroup,json=skipgroup" json:"skipgroup" gorm:"column:skipgroup"`
+	XXX_NoUnkeyedLiteral struct{}              `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                `gorm:"-" json:"-"`
+	XXX_sizecache        int32                 `gorm:"-" json:"-"`
 }
 
 func (m *GoSkipTest) Reset()         { *m = GoSkipTest{} }
@@ -1371,11 +1371,11 @@ func (m *GoSkipTest) GetSkipgroup() *GoSkipTest_SkipGroup {
 }
 
 type GoSkipTest_SkipGroup struct {
-	GroupInt32           *int32   `protobuf:"varint,16,req,name=group_int32,json=groupInt32" json:"group_int32,omitempty"`
-	GroupString          *string  `protobuf:"bytes,17,req,name=group_string,json=groupString" json:"group_string,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GroupInt32           *int32   `protobuf:"varint,16,req,name=group_int32,json=groupInt32" json:"group_int32" gorm:"column:group_int32"`
+	GroupString          *string  `protobuf:"bytes,17,req,name=group_string,json=groupString" json:"group_string" gorm:"column:group_string"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GoSkipTest_SkipGroup) Reset()         { *m = GoSkipTest_SkipGroup{} }
@@ -1420,10 +1420,10 @@ func (m *GoSkipTest_SkipGroup) GetGroupString() string {
 // For testing packed/non-packed decoder switching.
 // A serialized instance of one should be deserializable as the other.
 type NonPackedTest struct {
-	A                    []int32  `protobuf:"varint,1,rep,name=a" json:"a,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	A                    []int32  `protobuf:"varint,1,rep,name=a" json:"a,omitempty" gorm:"column:a,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *NonPackedTest) Reset()         { *m = NonPackedTest{} }
@@ -1459,10 +1459,10 @@ func (m *NonPackedTest) GetA() []int32 {
 }
 
 type PackedTest struct {
-	B                    []int32  `protobuf:"varint,1,rep,packed,name=b" json:"b,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	B                    []int32  `protobuf:"varint,1,rep,packed,name=b" json:"b,omitempty" gorm:"column:b,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *PackedTest) Reset()         { *m = PackedTest{} }
@@ -1499,10 +1499,10 @@ func (m *PackedTest) GetB() []int32 {
 
 type MaxTag struct {
 	// Maximum possible tag number.
-	LastField            *string  `protobuf:"bytes,536870911,opt,name=last_field,json=lastField" json:"last_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	LastField            *string  `protobuf:"bytes,536870911,opt,name=last_field,json=lastField" json:"last_field,omitempty" gorm:"column:last_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *MaxTag) Reset()         { *m = MaxTag{} }
@@ -1538,11 +1538,11 @@ func (m *MaxTag) GetLastField() string {
 }
 
 type OldMessage struct {
-	Nested               *OldMessage_Nested `protobuf:"bytes,1,opt,name=nested" json:"nested,omitempty"`
-	Num                  *int32             `protobuf:"varint,2,opt,name=num" json:"num,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
+	Nested               *OldMessage_Nested `protobuf:"bytes,1,opt,name=nested" json:"nested,omitempty" gorm:"column:nested,omitempty"`
+	Num                  *int32             `protobuf:"varint,2,opt,name=num" json:"num,omitempty" gorm:"column:num,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte             `gorm:"-" json:"-"`
+	XXX_sizecache        int32              `gorm:"-" json:"-"`
 }
 
 func (m *OldMessage) Reset()         { *m = OldMessage{} }
@@ -1585,10 +1585,10 @@ func (m *OldMessage) GetNum() int32 {
 }
 
 type OldMessage_Nested struct {
-	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *OldMessage_Nested) Reset()         { *m = OldMessage_Nested{} }
@@ -1626,12 +1626,12 @@ func (m *OldMessage_Nested) GetName() string {
 // NewMessage is wire compatible with OldMessage;
 // imagine it as a future version.
 type NewMessage struct {
-	Nested *NewMessage_Nested `protobuf:"bytes,1,opt,name=nested" json:"nested,omitempty"`
+	Nested *NewMessage_Nested `protobuf:"bytes,1,opt,name=nested" json:"nested,omitempty" gorm:"column:nested,omitempty"`
 	// This is an int32 in OldMessage.
-	Num                  *int64   `protobuf:"varint,2,opt,name=num" json:"num,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Num                  *int64   `protobuf:"varint,2,opt,name=num" json:"num,omitempty" gorm:"column:num,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *NewMessage) Reset()         { *m = NewMessage{} }
@@ -1674,11 +1674,11 @@ func (m *NewMessage) GetNum() int64 {
 }
 
 type NewMessage_Nested struct {
-	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	FoodGroup            *string  `protobuf:"bytes,2,opt,name=food_group,json=foodGroup" json:"food_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	FoodGroup            *string  `protobuf:"bytes,2,opt,name=food_group,json=foodGroup" json:"food_group,omitempty" gorm:"column:food_group,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *NewMessage_Nested) Reset()         { *m = NewMessage_Nested{} }
@@ -1721,12 +1721,12 @@ func (m *NewMessage_Nested) GetFoodGroup() string {
 }
 
 type InnerMessage struct {
-	Host                 *string  `protobuf:"bytes,1,req,name=host" json:"host,omitempty"`
-	Port                 *int32   `protobuf:"varint,2,opt,name=port,def=4000" json:"port,omitempty"`
-	Connected            *bool    `protobuf:"varint,3,opt,name=connected" json:"connected,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Host                 *string  `protobuf:"bytes,1,req,name=host" json:"host" gorm:"column:host"`
+	Port                 *int32   `protobuf:"varint,2,opt,name=port,def=4000" json:"port,omitempty" gorm:"column:port,omitempty"`
+	Connected            *bool    `protobuf:"varint,3,opt,name=connected" json:"connected,omitempty" gorm:"column:connected,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *InnerMessage) Reset()         { *m = InnerMessage{} }
@@ -1778,14 +1778,14 @@ func (m *InnerMessage) GetConnected() bool {
 }
 
 type OtherMessage struct {
-	Key                          *int64        `protobuf:"varint,1,opt,name=key" json:"key,omitempty"`
-	Value                        []byte        `protobuf:"bytes,2,opt,name=value" json:"value,omitempty"`
-	Weight                       *float32      `protobuf:"fixed32,3,opt,name=weight" json:"weight,omitempty"`
-	Inner                        *InnerMessage `protobuf:"bytes,4,opt,name=inner" json:"inner,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}      `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	Key                          *int64        `protobuf:"varint,1,opt,name=key" json:"key,omitempty" gorm:"column:key,omitempty"`
+	Value                        []byte        `protobuf:"bytes,2,opt,name=value" json:"value,omitempty" gorm:"column:value,omitempty"`
+	Weight                       *float32      `protobuf:"fixed32,3,opt,name=weight" json:"weight,omitempty" gorm:"column:weight,omitempty"`
+	Inner                        *InnerMessage `protobuf:"bytes,4,opt,name=inner" json:"inner,omitempty" gorm:"column:inner,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}      `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *OtherMessage) Reset()         { *m = OtherMessage{} }
@@ -1850,10 +1850,10 @@ func (m *OtherMessage) GetInner() *InnerMessage {
 }
 
 type RequiredInnerMessage struct {
-	LeoFinallyWonAnOscar *InnerMessage `protobuf:"bytes,1,req,name=leo_finally_won_an_oscar,json=leoFinallyWonAnOscar" json:"leo_finally_won_an_oscar,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	LeoFinallyWonAnOscar *InnerMessage `protobuf:"bytes,1,req,name=leo_finally_won_an_oscar,json=leoFinallyWonAnOscar" json:"leo_finally_won_an_oscar" gorm:"column:leo_finally_won_an_oscar"`
+	XXX_NoUnkeyedLiteral struct{}      `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte        `gorm:"-" json:"-"`
+	XXX_sizecache        int32         `gorm:"-" json:"-"`
 }
 
 func (m *RequiredInnerMessage) Reset()         { *m = RequiredInnerMessage{} }
@@ -1889,23 +1889,23 @@ func (m *RequiredInnerMessage) GetLeoFinallyWonAnOscar() *InnerMessage {
 }
 
 type MyMessage struct {
-	Count          *int32                `protobuf:"varint,1,req,name=count" json:"count,omitempty"`
-	Name           *string               `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
-	Quote          *string               `protobuf:"bytes,3,opt,name=quote" json:"quote,omitempty"`
-	Pet            []string              `protobuf:"bytes,4,rep,name=pet" json:"pet,omitempty"`
-	Inner          *InnerMessage         `protobuf:"bytes,5,opt,name=inner" json:"inner,omitempty"`
-	Others         []*OtherMessage       `protobuf:"bytes,6,rep,name=others" json:"others,omitempty"`
-	WeMustGoDeeper *RequiredInnerMessage `protobuf:"bytes,13,opt,name=we_must_go_deeper,json=weMustGoDeeper" json:"we_must_go_deeper,omitempty"`
-	RepInner       []*InnerMessage       `protobuf:"bytes,12,rep,name=rep_inner,json=repInner" json:"rep_inner,omitempty"`
-	Bikeshed       *MyMessage_Color      `protobuf:"varint,7,opt,name=bikeshed,enum=test_proto.MyMessage_Color" json:"bikeshed,omitempty"`
-	Somegroup      *MyMessage_SomeGroup  `protobuf:"group,8,opt,name=SomeGroup,json=somegroup" json:"somegroup,omitempty"`
+	Count          *int32                `protobuf:"varint,1,req,name=count" json:"count" gorm:"column:count"`
+	Name           *string               `protobuf:"bytes,2,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Quote          *string               `protobuf:"bytes,3,opt,name=quote" json:"quote,omitempty" gorm:"column:quote,omitempty"`
+	Pet            []string              `protobuf:"bytes,4,rep,name=pet" json:"pet,omitempty" gorm:"column:pet,omitempty"`
+	Inner          *InnerMessage         `protobuf:"bytes,5,opt,name=inner" json:"inner,omitempty" gorm:"column:inner,omitempty"`
+	Others         []*OtherMessage       `protobuf:"bytes,6,rep,name=others" json:"others,omitempty" gorm:"column:others,omitempty"`
+	WeMustGoDeeper *RequiredInnerMessage `protobuf:"bytes,13,opt,name=we_must_go_deeper,json=weMustGoDeeper" json:"we_must_go_deeper,omitempty" gorm:"column:we_must_go_deeper,omitempty"`
+	RepInner       []*InnerMessage       `protobuf:"bytes,12,rep,name=rep_inner,json=repInner" json:"rep_inner,omitempty" gorm:"column:rep_inner,omitempty"`
+	Bikeshed       *MyMessage_Color      `protobuf:"varint,7,opt,name=bikeshed,enum=test_proto.MyMessage_Color" json:"bikeshed,omitempty" gorm:"column:bikeshed,omitempty"`
+	Somegroup      *MyMessage_SomeGroup  `protobuf:"group,8,opt,name=SomeGroup,json=somegroup" json:"somegroup,omitempty" gorm:"column:somegroup,omitempty"`
 	// This field becomes [][]byte in the generated code.
-	RepBytes                     [][]byte `protobuf:"bytes,10,rep,name=rep_bytes,json=repBytes" json:"rep_bytes,omitempty"`
-	Bigfloat                     *float64 `protobuf:"fixed64,11,opt,name=bigfloat" json:"bigfloat,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	RepBytes                     [][]byte `protobuf:"bytes,10,rep,name=rep_bytes,json=repBytes" json:"rep_bytes,omitempty" gorm:"column:rep_bytes,omitempty"`
+	Bigfloat                     *float64 `protobuf:"fixed64,11,opt,name=bigfloat" json:"bigfloat,omitempty" gorm:"column:bigfloat,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *MyMessage) Reset()         { *m = MyMessage{} }
@@ -2026,10 +2026,10 @@ func (m *MyMessage) GetBigfloat() float64 {
 }
 
 type MyMessage_SomeGroup struct {
-	GroupField           *int32   `protobuf:"varint,9,opt,name=group_field,json=groupField" json:"group_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GroupField           *int32   `protobuf:"varint,9,opt,name=group_field,json=groupField" json:"group_field,omitempty" gorm:"column:group_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *MyMessage_SomeGroup) Reset()         { *m = MyMessage_SomeGroup{} }
@@ -2065,11 +2065,11 @@ func (m *MyMessage_SomeGroup) GetGroupField() int32 {
 }
 
 type Ext struct {
-	Data                 *string         `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
-	MapField             map[int32]int32 `protobuf:"bytes,2,rep,name=map_field,json=mapField" json:"map_field,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	Data                 *string         `protobuf:"bytes,1,opt,name=data" json:"data,omitempty" gorm:"column:data,omitempty"`
+	MapField             map[int32]int32 `protobuf:"bytes,2,rep,name=map_field,json=mapField" json:"map_field,omitempty" gorm:"column:map_field,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *Ext) Reset()         { *m = Ext{} }
@@ -2139,12 +2139,12 @@ var E_Ext_Number = &proto.ExtensionDesc{
 }
 
 type ComplexExtension struct {
-	First                *int32   `protobuf:"varint,1,opt,name=first" json:"first,omitempty"`
-	Second               *int32   `protobuf:"varint,2,opt,name=second" json:"second,omitempty"`
-	Third                []int32  `protobuf:"varint,3,rep,name=third" json:"third,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	First                *int32   `protobuf:"varint,1,opt,name=first" json:"first,omitempty" gorm:"column:first,omitempty"`
+	Second               *int32   `protobuf:"varint,2,opt,name=second" json:"second,omitempty" gorm:"column:second,omitempty"`
+	Third                []int32  `protobuf:"varint,3,rep,name=third" json:"third,omitempty" gorm:"column:third,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *ComplexExtension) Reset()         { *m = ComplexExtension{} }
@@ -2194,10 +2194,10 @@ func (m *ComplexExtension) GetThird() []int32 {
 }
 
 type DefaultsMessage struct {
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *DefaultsMessage) Reset()         { *m = DefaultsMessage{} }
@@ -2234,10 +2234,10 @@ func (m *DefaultsMessage) XXX_DiscardUnknown() {
 var xxx_messageInfo_DefaultsMessage proto.InternalMessageInfo
 
 type MyMessageSet struct {
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `protobuf_messageset:"1" json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `protobuf_messageset:"1" gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *MyMessageSet) Reset()         { *m = MyMessageSet{} }
@@ -2274,9 +2274,9 @@ func (m *MyMessageSet) XXX_DiscardUnknown() {
 var xxx_messageInfo_MyMessageSet proto.InternalMessageInfo
 
 type Empty struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Empty) Reset()         { *m = Empty{} }
@@ -2305,10 +2305,10 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type MessageList struct {
-	Message              []*MessageList_Message `protobuf:"group,1,rep,name=Message,json=message" json:"message,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
+	Message              []*MessageList_Message `protobuf:"group,1,rep,name=Message,json=message" json:"message,omitempty" gorm:"column:message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}               `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                 `gorm:"-" json:"-"`
+	XXX_sizecache        int32                  `gorm:"-" json:"-"`
 }
 
 func (m *MessageList) Reset()         { *m = MessageList{} }
@@ -2344,11 +2344,11 @@ func (m *MessageList) GetMessage() []*MessageList_Message {
 }
 
 type MessageList_Message struct {
-	Name                 *string  `protobuf:"bytes,2,req,name=name" json:"name,omitempty"`
-	Count                *int32   `protobuf:"varint,3,req,name=count" json:"count,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Name                 *string  `protobuf:"bytes,2,req,name=name" json:"name" gorm:"column:name"`
+	Count                *int32   `protobuf:"varint,3,req,name=count" json:"count" gorm:"column:count"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *MessageList_Message) Reset()         { *m = MessageList_Message{} }
@@ -2391,11 +2391,11 @@ func (m *MessageList_Message) GetCount() int32 {
 }
 
 type Strings struct {
-	StringField          *string  `protobuf:"bytes,1,opt,name=string_field,json=stringField" json:"string_field,omitempty"`
-	BytesField           []byte   `protobuf:"bytes,2,opt,name=bytes_field,json=bytesField" json:"bytes_field,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	StringField          *string  `protobuf:"bytes,1,opt,name=string_field,json=stringField" json:"string_field,omitempty" gorm:"column:string_field,omitempty"`
+	BytesField           []byte   `protobuf:"bytes,2,opt,name=bytes_field,json=bytesField" json:"bytes_field,omitempty" gorm:"column:bytes_field,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Strings) Reset()         { *m = Strings{} }
@@ -2440,31 +2440,31 @@ func (m *Strings) GetBytesField() []byte {
 type Defaults struct {
 	// Default-valued fields of all basic types.
 	// Same as GoTest, but copied here to make testing easier.
-	F_Bool    *bool           `protobuf:"varint,1,opt,name=F_Bool,json=FBool,def=1" json:"F_Bool,omitempty"`
-	F_Int32   *int32          `protobuf:"varint,2,opt,name=F_Int32,json=FInt32,def=32" json:"F_Int32,omitempty"`
-	F_Int64   *int64          `protobuf:"varint,3,opt,name=F_Int64,json=FInt64,def=64" json:"F_Int64,omitempty"`
-	F_Fixed32 *uint32         `protobuf:"fixed32,4,opt,name=F_Fixed32,json=FFixed32,def=320" json:"F_Fixed32,omitempty"`
-	F_Fixed64 *uint64         `protobuf:"fixed64,5,opt,name=F_Fixed64,json=FFixed64,def=640" json:"F_Fixed64,omitempty"`
-	F_Uint32  *uint32         `protobuf:"varint,6,opt,name=F_Uint32,json=FUint32,def=3200" json:"F_Uint32,omitempty"`
-	F_Uint64  *uint64         `protobuf:"varint,7,opt,name=F_Uint64,json=FUint64,def=6400" json:"F_Uint64,omitempty"`
-	F_Float   *float32        `protobuf:"fixed32,8,opt,name=F_Float,json=FFloat,def=314159" json:"F_Float,omitempty"`
-	F_Double  *float64        `protobuf:"fixed64,9,opt,name=F_Double,json=FDouble,def=271828" json:"F_Double,omitempty"`
-	F_String  *string         `protobuf:"bytes,10,opt,name=F_String,json=FString,def=hello, \"world!\"\n" json:"F_String,omitempty"`
-	F_Bytes   []byte          `protobuf:"bytes,11,opt,name=F_Bytes,json=FBytes,def=Bignose" json:"F_Bytes,omitempty"`
-	F_Sint32  *int32          `protobuf:"zigzag32,12,opt,name=F_Sint32,json=FSint32,def=-32" json:"F_Sint32,omitempty"`
-	F_Sint64  *int64          `protobuf:"zigzag64,13,opt,name=F_Sint64,json=FSint64,def=-64" json:"F_Sint64,omitempty"`
-	F_Enum    *Defaults_Color `protobuf:"varint,14,opt,name=F_Enum,json=FEnum,enum=test_proto.Defaults_Color,def=1" json:"F_Enum,omitempty"`
+	F_Bool    *bool           `protobuf:"varint,1,opt,name=F_Bool,json=FBool,def=1" json:"F_Bool,omitempty" gorm:"column:F_Bool,omitempty"`
+	F_Int32   *int32          `protobuf:"varint,2,opt,name=F_Int32,json=FInt32,def=32" json:"F_Int32,omitempty" gorm:"column:F_Int32,omitempty"`
+	F_Int64   *int64          `protobuf:"varint,3,opt,name=F_Int64,json=FInt64,def=64" json:"F_Int64,omitempty" gorm:"column:F_Int64,omitempty"`
+	F_Fixed32 *uint32         `protobuf:"fixed32,4,opt,name=F_Fixed32,json=FFixed32,def=320" json:"F_Fixed32,omitempty" gorm:"column:F_Fixed32,omitempty"`
+	F_Fixed64 *uint64         `protobuf:"fixed64,5,opt,name=F_Fixed64,json=FFixed64,def=640" json:"F_Fixed64,omitempty" gorm:"column:F_Fixed64,omitempty"`
+	F_Uint32  *uint32         `protobuf:"varint,6,opt,name=F_Uint32,json=FUint32,def=3200" json:"F_Uint32,omitempty" gorm:"column:F_Uint32,omitempty"`
+	F_Uint64  *uint64         `protobuf:"varint,7,opt,name=F_Uint64,json=FUint64,def=6400" json:"F_Uint64,omitempty" gorm:"column:F_Uint64,omitempty"`
+	F_Float   *float32        `protobuf:"fixed32,8,opt,name=F_Float,json=FFloat,def=314159" json:"F_Float,omitempty" gorm:"column:F_Float,omitempty"`
+	F_Double  *float64        `protobuf:"fixed64,9,opt,name=F_Double,json=FDouble,def=271828" json:"F_Double,omitempty" gorm:"column:F_Double,omitempty"`
+	F_String  *string         `protobuf:"bytes,10,opt,name=F_String,json=FString,def=hello, \"world!\"\n" json:"F_String,omitempty" gorm:"column:F_String,omitempty"`
+	F_Bytes   []byte          `protobuf:"bytes,11,opt,name=F_Bytes,json=FBytes,def=Bignose" json:"F_Bytes,omitempty" gorm:"column:F_Bytes,omitempty"`
+	F_Sint32  *int32          `protobuf:"zigzag32,12,opt,name=F_Sint32,json=FSint32,def=-32" json:"F_Sint32,omitempty" gorm:"column:F_Sint32,omitempty"`
+	F_Sint64  *int64          `protobuf:"zigzag64,13,opt,name=F_Sint64,json=FSint64,def=-64" json:"F_Sint64,omitempty" gorm:"column:F_Sint64,omitempty"`
+	F_Enum    *Defaults_Color `protobuf:"varint,14,opt,name=F_Enum,json=FEnum,enum=test_proto.Defaults_Color,def=1" json:"F_Enum,omitempty" gorm:"column:F_Enum,omitempty"`
 	// More fields with crazy defaults.
-	F_Pinf *float32 `protobuf:"fixed32,15,opt,name=F_Pinf,json=FPinf,def=inf" json:"F_Pinf,omitempty"`
-	F_Ninf *float32 `protobuf:"fixed32,16,opt,name=F_Ninf,json=FNinf,def=-inf" json:"F_Ninf,omitempty"`
-	F_Nan  *float32 `protobuf:"fixed32,17,opt,name=F_Nan,json=FNan,def=nan" json:"F_Nan,omitempty"`
+	F_Pinf *float32 `protobuf:"fixed32,15,opt,name=F_Pinf,json=FPinf,def=inf" json:"F_Pinf,omitempty" gorm:"column:F_Pinf,omitempty"`
+	F_Ninf *float32 `protobuf:"fixed32,16,opt,name=F_Ninf,json=FNinf,def=-inf" json:"F_Ninf,omitempty" gorm:"column:F_Ninf,omitempty"`
+	F_Nan  *float32 `protobuf:"fixed32,17,opt,name=F_Nan,json=FNan,def=nan" json:"F_Nan,omitempty" gorm:"column:F_Nan,omitempty"`
 	// Sub-message.
-	Sub *SubDefaults `protobuf:"bytes,18,opt,name=sub" json:"sub,omitempty"`
+	Sub *SubDefaults `protobuf:"bytes,18,opt,name=sub" json:"sub,omitempty" gorm:"column:sub,omitempty"`
 	// Redundant but explicit defaults.
-	StrZero              *string  `protobuf:"bytes,19,opt,name=str_zero,json=strZero,def=" json:"str_zero,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	StrZero              *string  `protobuf:"bytes,19,opt,name=str_zero,json=strZero,def=" json:"str_zero,omitempty" gorm:"column:str_zero,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Defaults) Reset()         { *m = Defaults{} }
@@ -2647,10 +2647,10 @@ func (m *Defaults) GetStrZero() string {
 }
 
 type SubDefaults struct {
-	N                    *int64   `protobuf:"varint,1,opt,name=n,def=7" json:"n,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	N                    *int64   `protobuf:"varint,1,opt,name=n,def=7" json:"n,omitempty" gorm:"column:n,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *SubDefaults) Reset()         { *m = SubDefaults{} }
@@ -2688,10 +2688,10 @@ func (m *SubDefaults) GetN() int64 {
 }
 
 type RepeatedEnum struct {
-	Color                []RepeatedEnum_Color `protobuf:"varint,1,rep,name=color,enum=test_proto.RepeatedEnum_Color" json:"color,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Color                []RepeatedEnum_Color `protobuf:"varint,1,rep,name=color,enum=test_proto.RepeatedEnum_Color" json:"color,omitempty" gorm:"column:color,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte               `gorm:"-" json:"-"`
+	XXX_sizecache        int32                `gorm:"-" json:"-"`
 }
 
 func (m *RepeatedEnum) Reset()         { *m = RepeatedEnum{} }
@@ -2727,16 +2727,16 @@ func (m *RepeatedEnum) GetColor() []RepeatedEnum_Color {
 }
 
 type MoreRepeated struct {
-	Bools                []bool   `protobuf:"varint,1,rep,name=bools" json:"bools,omitempty"`
-	BoolsPacked          []bool   `protobuf:"varint,2,rep,packed,name=bools_packed,json=boolsPacked" json:"bools_packed,omitempty"`
-	Ints                 []int32  `protobuf:"varint,3,rep,name=ints" json:"ints,omitempty"`
-	IntsPacked           []int32  `protobuf:"varint,4,rep,packed,name=ints_packed,json=intsPacked" json:"ints_packed,omitempty"`
-	Int64SPacked         []int64  `protobuf:"varint,7,rep,packed,name=int64s_packed,json=int64sPacked" json:"int64s_packed,omitempty"`
-	Strings              []string `protobuf:"bytes,5,rep,name=strings" json:"strings,omitempty"`
-	Fixeds               []uint32 `protobuf:"fixed32,6,rep,name=fixeds" json:"fixeds,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Bools                []bool   `protobuf:"varint,1,rep,name=bools" json:"bools,omitempty" gorm:"column:bools,omitempty"`
+	BoolsPacked          []bool   `protobuf:"varint,2,rep,packed,name=bools_packed,json=boolsPacked" json:"bools_packed,omitempty" gorm:"column:bools_packed,omitempty"`
+	Ints                 []int32  `protobuf:"varint,3,rep,name=ints" json:"ints,omitempty" gorm:"column:ints,omitempty"`
+	IntsPacked           []int32  `protobuf:"varint,4,rep,packed,name=ints_packed,json=intsPacked" json:"ints_packed,omitempty" gorm:"column:ints_packed,omitempty"`
+	Int64SPacked         []int64  `protobuf:"varint,7,rep,packed,name=int64s_packed,json=int64sPacked" json:"int64s_packed,omitempty" gorm:"column:int64s_packed,omitempty"`
+	Strings              []string `protobuf:"bytes,5,rep,name=strings" json:"strings,omitempty" gorm:"column:strings,omitempty"`
+	Fixeds               []uint32 `protobuf:"fixed32,6,rep,name=fixeds" json:"fixeds,omitempty" gorm:"column:fixeds,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *MoreRepeated) Reset()         { *m = MoreRepeated{} }
@@ -2814,10 +2814,10 @@ func (m *MoreRepeated) GetFixeds() []uint32 {
 }
 
 type GroupOld struct {
-	G                    *GroupOld_G `protobuf:"group,101,opt,name=G,json=g" json:"g,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	G                    *GroupOld_G `protobuf:"group,101,opt,name=G,json=g" json:"g,omitempty" gorm:"column:g,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte      `gorm:"-" json:"-"`
+	XXX_sizecache        int32       `gorm:"-" json:"-"`
 }
 
 func (m *GroupOld) Reset()         { *m = GroupOld{} }
@@ -2853,10 +2853,10 @@ func (m *GroupOld) GetG() *GroupOld_G {
 }
 
 type GroupOld_G struct {
-	X                    *int32   `protobuf:"varint,2,opt,name=x" json:"x,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	X                    *int32   `protobuf:"varint,2,opt,name=x" json:"x,omitempty" gorm:"column:x,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GroupOld_G) Reset()         { *m = GroupOld_G{} }
@@ -2892,10 +2892,10 @@ func (m *GroupOld_G) GetX() int32 {
 }
 
 type GroupNew struct {
-	G                    *GroupNew_G `protobuf:"group,101,opt,name=G,json=g" json:"g,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	G                    *GroupNew_G `protobuf:"group,101,opt,name=G,json=g" json:"g,omitempty" gorm:"column:g,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte      `gorm:"-" json:"-"`
+	XXX_sizecache        int32       `gorm:"-" json:"-"`
 }
 
 func (m *GroupNew) Reset()         { *m = GroupNew{} }
@@ -2931,11 +2931,11 @@ func (m *GroupNew) GetG() *GroupNew_G {
 }
 
 type GroupNew_G struct {
-	X                    *int32   `protobuf:"varint,2,opt,name=x" json:"x,omitempty"`
-	Y                    *int32   `protobuf:"varint,3,opt,name=y" json:"y,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	X                    *int32   `protobuf:"varint,2,opt,name=x" json:"x,omitempty" gorm:"column:x,omitempty"`
+	Y                    *int32   `protobuf:"varint,3,opt,name=y" json:"y,omitempty" gorm:"column:y,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GroupNew_G) Reset()         { *m = GroupNew_G{} }
@@ -2978,11 +2978,11 @@ func (m *GroupNew_G) GetY() int32 {
 }
 
 type FloatingPoint struct {
-	F                    *float64 `protobuf:"fixed64,1,req,name=f" json:"f,omitempty"`
-	Exact                *bool    `protobuf:"varint,2,opt,name=exact" json:"exact,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	F                    *float64 `protobuf:"fixed64,1,req,name=f" json:"f" gorm:"column:f"`
+	Exact                *bool    `protobuf:"varint,2,opt,name=exact" json:"exact,omitempty" gorm:"column:exact,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *FloatingPoint) Reset()         { *m = FloatingPoint{} }
@@ -3025,13 +3025,13 @@ func (m *FloatingPoint) GetExact() bool {
 }
 
 type MessageWithMap struct {
-	NameMapping          map[int32]string         `protobuf:"bytes,1,rep,name=name_mapping,json=nameMapping" json:"name_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	MsgMapping           map[int64]*FloatingPoint `protobuf:"bytes,2,rep,name=msg_mapping,json=msgMapping" json:"msg_mapping,omitempty" protobuf_key:"zigzag64,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	ByteMapping          map[bool][]byte          `protobuf:"bytes,3,rep,name=byte_mapping,json=byteMapping" json:"byte_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	StrToStr             map[string]string        `protobuf:"bytes,4,rep,name=str_to_str,json=strToStr" json:"str_to_str,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	NameMapping          map[int32]string         `protobuf:"bytes,1,rep,name=name_mapping,json=nameMapping" json:"name_mapping,omitempty" gorm:"column:name_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	MsgMapping           map[int64]*FloatingPoint `protobuf:"bytes,2,rep,name=msg_mapping,json=msgMapping" json:"msg_mapping,omitempty" gorm:"column:msg_mapping,omitempty" protobuf_key:"zigzag64,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	ByteMapping          map[bool][]byte          `protobuf:"bytes,3,rep,name=byte_mapping,json=byteMapping" json:"byte_mapping,omitempty" gorm:"column:byte_mapping,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	StrToStr             map[string]string        `protobuf:"bytes,4,rep,name=str_to_str,json=strToStr" json:"str_to_str,omitempty" gorm:"column:str_to_str,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                 `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                   `gorm:"-" json:"-"`
+	XXX_sizecache        int32                    `gorm:"-" json:"-"`
 }
 
 func (m *MessageWithMap) Reset()         { *m = MessageWithMap{} }
@@ -3110,9 +3110,9 @@ type Oneof struct {
 	// Types that are valid to be assigned to Tormato:
 	//	*Oneof_Value
 	Tormato              isOneof_Tormato `protobuf_oneof:"tormato"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *Oneof) Reset()         { *m = Oneof{} }
@@ -3421,10 +3421,10 @@ func (*Oneof) XXX_OneofWrappers() []interface{} {
 }
 
 type Oneof_F_Group struct {
-	X                    *int32   `protobuf:"varint,17,opt,name=x" json:"x,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	X                    *int32   `protobuf:"varint,17,opt,name=x" json:"x,omitempty" gorm:"column:x,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Oneof_F_Group) Reset()         { *m = Oneof_F_Group{} }
@@ -3460,7 +3460,7 @@ func (m *Oneof_F_Group) GetX() int32 {
 }
 
 type Communique struct {
-	MakeMeCry *bool `protobuf:"varint,1,opt,name=make_me_cry,json=makeMeCry" json:"make_me_cry,omitempty"`
+	MakeMeCry *bool `protobuf:"varint,1,opt,name=make_me_cry,json=makeMeCry" json:"make_me_cry,omitempty" gorm:"column:make_me_cry,omitempty"`
 	// This is a oneof, called "union".
 	//
 	// Types that are valid to be assigned to Union:
@@ -3471,9 +3471,9 @@ type Communique struct {
 	//	*Communique_Col
 	//	*Communique_Msg
 	Union                isCommunique_Union `protobuf_oneof:"union"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}           `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte             `gorm:"-" json:"-"`
+	XXX_sizecache        int32              `gorm:"-" json:"-"`
 }
 
 func (m *Communique) Reset()         { *m = Communique{} }
@@ -3610,16 +3610,16 @@ func (*Communique) XXX_OneofWrappers() []interface{} {
 }
 
 type TestUTF8 struct {
-	Scalar *string  `protobuf:"bytes,1,opt,name=scalar" json:"scalar,omitempty"`
-	Vector []string `protobuf:"bytes,2,rep,name=vector" json:"vector,omitempty"`
+	Scalar *string  `protobuf:"bytes,1,opt,name=scalar" json:"scalar,omitempty" gorm:"column:scalar,omitempty"`
+	Vector []string `protobuf:"bytes,2,rep,name=vector" json:"vector,omitempty" gorm:"column:vector,omitempty"`
 	// Types that are valid to be assigned to Oneof:
 	//	*TestUTF8_Field
 	Oneof                isTestUTF8_Oneof `protobuf_oneof:"oneof"`
-	MapKey               map[string]int64 `protobuf:"bytes,4,rep,name=map_key,json=mapKey" json:"map_key,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
-	MapValue             map[int64]string `protobuf:"bytes,5,rep,name=map_value,json=mapValue" json:"map_value,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
+	MapKey               map[string]int64 `protobuf:"bytes,4,rep,name=map_key,json=mapKey" json:"map_key,omitempty" gorm:"column:map_key,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	MapValue             map[int64]string `protobuf:"bytes,5,rep,name=map_value,json=mapValue" json:"map_value,omitempty" gorm:"column:map_value,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}         `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte           `gorm:"-" json:"-"`
+	XXX_sizecache        int32            `gorm:"-" json:"-"`
 }
 
 func (m *TestUTF8) Reset()         { *m = TestUTF8{} }

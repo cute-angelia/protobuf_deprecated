@@ -54,28 +54,28 @@ func (Message_Humour) EnumDescriptor() ([]byte, []int) {
 }
 
 type Message struct {
-	Name                 string                             `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Hilarity             Message_Humour                     `protobuf:"varint,2,opt,name=hilarity,proto3,enum=proto3_proto.Message_Humour" json:"hilarity,omitempty"`
-	HeightInCm           uint32                             `protobuf:"varint,3,opt,name=height_in_cm,json=heightInCm,proto3" json:"height_in_cm,omitempty"`
-	Data                 []byte                             `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
-	ResultCount          int64                              `protobuf:"varint,7,opt,name=result_count,json=resultCount,proto3" json:"result_count,omitempty"`
-	TrueScotsman         bool                               `protobuf:"varint,8,opt,name=true_scotsman,json=trueScotsman,proto3" json:"true_scotsman,omitempty"`
-	Score                float32                            `protobuf:"fixed32,9,opt,name=score,proto3" json:"score,omitempty"`
-	Key                  []uint64                           `protobuf:"varint,5,rep,packed,name=key,proto3" json:"key,omitempty"`
-	ShortKey             []int32                            `protobuf:"varint,19,rep,packed,name=short_key,json=shortKey,proto3" json:"short_key,omitempty"`
-	Nested               *Nested                            `protobuf:"bytes,6,opt,name=nested,proto3" json:"nested,omitempty"`
-	RFunny               []Message_Humour                   `protobuf:"varint,16,rep,packed,name=r_funny,json=rFunny,proto3,enum=proto3_proto.Message_Humour" json:"r_funny,omitempty"`
-	Terrain              map[string]*Nested                 `protobuf:"bytes,10,rep,name=terrain,proto3" json:"terrain,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Proto2Field          *test_proto.SubDefaults            `protobuf:"bytes,11,opt,name=proto2_field,json=proto2Field,proto3" json:"proto2_field,omitempty"`
-	Proto2Value          map[string]*test_proto.SubDefaults `protobuf:"bytes,13,rep,name=proto2_value,json=proto2Value,proto3" json:"proto2_value,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Anything             *any.Any                           `protobuf:"bytes,14,opt,name=anything,proto3" json:"anything,omitempty"`
-	ManyThings           []*any.Any                         `protobuf:"bytes,15,rep,name=many_things,json=manyThings,proto3" json:"many_things,omitempty"`
-	Submessage           *Message                           `protobuf:"bytes,17,opt,name=submessage,proto3" json:"submessage,omitempty"`
-	Children             []*Message                         `protobuf:"bytes,18,rep,name=children,proto3" json:"children,omitempty"`
-	StringMap            map[string]string                  `protobuf:"bytes,20,rep,name=string_map,json=stringMap,proto3" json:"string_map,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}                           `json:"-"`
-	XXX_unrecognized     []byte                             `json:"-"`
-	XXX_sizecache        int32                              `json:"-"`
+	Name                 string                             `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Hilarity             Message_Humour                     `protobuf:"varint,2,opt,name=hilarity,proto3,enum=proto3_proto.Message_Humour" json:"hilarity,omitempty" gorm:"column:hilarity,omitempty"`
+	HeightInCm           uint32                             `protobuf:"varint,3,opt,name=height_in_cm,json=heightInCm,proto3" json:"height_in_cm,omitempty" gorm:"column:height_in_cm,omitempty"`
+	Data                 []byte                             `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty" gorm:"column:data,omitempty"`
+	ResultCount          int64                              `protobuf:"varint,7,opt,name=result_count,json=resultCount,proto3" json:"result_count,omitempty" gorm:"column:result_count,omitempty"`
+	TrueScotsman         bool                               `protobuf:"varint,8,opt,name=true_scotsman,json=trueScotsman,proto3" json:"true_scotsman,omitempty" gorm:"column:true_scotsman,omitempty"`
+	Score                float32                            `protobuf:"fixed32,9,opt,name=score,proto3" json:"score,omitempty" gorm:"column:score,omitempty"`
+	Key                  []uint64                           `protobuf:"varint,5,rep,packed,name=key,proto3" json:"key,omitempty" gorm:"column:key,omitempty"`
+	ShortKey             []int32                            `protobuf:"varint,19,rep,packed,name=short_key,json=shortKey,proto3" json:"short_key,omitempty" gorm:"column:short_key,omitempty"`
+	Nested               *Nested                            `protobuf:"bytes,6,opt,name=nested,proto3" json:"nested,omitempty" gorm:"column:nested,omitempty"`
+	RFunny               []Message_Humour                   `protobuf:"varint,16,rep,packed,name=r_funny,json=rFunny,proto3,enum=proto3_proto.Message_Humour" json:"r_funny,omitempty" gorm:"column:r_funny,omitempty"`
+	Terrain              map[string]*Nested                 `protobuf:"bytes,10,rep,name=terrain,proto3" json:"terrain,omitempty" gorm:"column:terrain,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Proto2Field          *test_proto.SubDefaults            `protobuf:"bytes,11,opt,name=proto2_field,json=proto2Field,proto3" json:"proto2_field,omitempty" gorm:"column:proto2_field,omitempty"`
+	Proto2Value          map[string]*test_proto.SubDefaults `protobuf:"bytes,13,rep,name=proto2_value,json=proto2Value,proto3" json:"proto2_value,omitempty" gorm:"column:proto2_value,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Anything             *any.Any                           `protobuf:"bytes,14,opt,name=anything,proto3" json:"anything,omitempty" gorm:"column:anything,omitempty"`
+	ManyThings           []*any.Any                         `protobuf:"bytes,15,rep,name=many_things,json=manyThings,proto3" json:"many_things,omitempty" gorm:"column:many_things,omitempty"`
+	Submessage           *Message                           `protobuf:"bytes,17,opt,name=submessage,proto3" json:"submessage,omitempty" gorm:"column:submessage,omitempty"`
+	Children             []*Message                         `protobuf:"bytes,18,rep,name=children,proto3" json:"children,omitempty" gorm:"column:children,omitempty"`
+	StringMap            map[string]string                  `protobuf:"bytes,20,rep,name=string_map,json=stringMap,proto3" json:"string_map,omitempty" gorm:"column:string_map,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                           `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                             `gorm:"-" json:"-"`
+	XXX_sizecache        int32                              `gorm:"-" json:"-"`
 }
 
 func (m *Message) Reset()         { *m = Message{} }
@@ -237,11 +237,11 @@ func (m *Message) GetStringMap() map[string]string {
 }
 
 type Nested struct {
-	Bunny                string   `protobuf:"bytes,1,opt,name=bunny,proto3" json:"bunny,omitempty"`
-	Cute                 bool     `protobuf:"varint,2,opt,name=cute,proto3" json:"cute,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Bunny                string   `protobuf:"bytes,1,opt,name=bunny,proto3" json:"bunny,omitempty" gorm:"column:bunny,omitempty"`
+	Cute                 bool     `protobuf:"varint,2,opt,name=cute,proto3" json:"cute,omitempty" gorm:"column:cute,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Nested) Reset()         { *m = Nested{} }
@@ -284,10 +284,10 @@ func (m *Nested) GetCute() bool {
 }
 
 type MessageWithMap struct {
-	ByteMapping          map[bool][]byte `protobuf:"bytes,1,rep,name=byte_mapping,json=byteMapping,proto3" json:"byte_mapping,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	ByteMapping          map[bool][]byte `protobuf:"bytes,1,rep,name=byte_mapping,json=byteMapping,proto3" json:"byte_mapping,omitempty" gorm:"column:byte_mapping,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *MessageWithMap) Reset()         { *m = MessageWithMap{} }
@@ -323,10 +323,10 @@ func (m *MessageWithMap) GetByteMapping() map[bool][]byte {
 }
 
 type IntMap struct {
-	Rtt                  map[int32]int32 `protobuf:"bytes,1,rep,name=rtt,proto3" json:"rtt,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	Rtt                  map[int32]int32 `protobuf:"bytes,1,rep,name=rtt,proto3" json:"rtt,omitempty" gorm:"column:rtt,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *IntMap) Reset()         { *m = IntMap{} }
@@ -362,10 +362,10 @@ func (m *IntMap) GetRtt() map[int32]int32 {
 }
 
 type IntMaps struct {
-	Maps                 []*IntMap `protobuf:"bytes,1,rep,name=maps,proto3" json:"maps,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	Maps                 []*IntMap `protobuf:"bytes,1,rep,name=maps,proto3" json:"maps,omitempty" gorm:"column:maps,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte    `gorm:"-" json:"-"`
+	XXX_sizecache        int32     `gorm:"-" json:"-"`
 }
 
 func (m *IntMaps) Reset()         { *m = IntMaps{} }
@@ -401,16 +401,16 @@ func (m *IntMaps) GetMaps() []*IntMap {
 }
 
 type TestUTF8 struct {
-	Scalar string   `protobuf:"bytes,1,opt,name=scalar,proto3" json:"scalar,omitempty"`
-	Vector []string `protobuf:"bytes,2,rep,name=vector,proto3" json:"vector,omitempty"`
+	Scalar string   `protobuf:"bytes,1,opt,name=scalar,proto3" json:"scalar,omitempty" gorm:"column:scalar,omitempty"`
+	Vector []string `protobuf:"bytes,2,rep,name=vector,proto3" json:"vector,omitempty" gorm:"column:vector,omitempty"`
 	// Types that are valid to be assigned to Oneof:
 	//	*TestUTF8_Field
 	Oneof                isTestUTF8_Oneof `protobuf_oneof:"oneof"`
-	MapKey               map[string]int64 `protobuf:"bytes,4,rep,name=map_key,json=mapKey,proto3" json:"map_key,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	MapValue             map[int64]string `protobuf:"bytes,5,rep,name=map_value,json=mapValue,proto3" json:"map_value,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
+	MapKey               map[string]int64 `protobuf:"bytes,4,rep,name=map_key,json=mapKey,proto3" json:"map_key,omitempty" gorm:"column:map_key,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	MapValue             map[int64]string `protobuf:"bytes,5,rep,name=map_value,json=mapValue,proto3" json:"map_value,omitempty" gorm:"column:map_value,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}         `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte           `gorm:"-" json:"-"`
+	XXX_sizecache        int32            `gorm:"-" json:"-"`
 }
 
 func (m *TestUTF8) Reset()         { *m = TestUTF8{} }

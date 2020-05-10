@@ -22,10 +22,10 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type A1M1 struct {
-	F                    *test_a_1.M1 `protobuf:"bytes,1,opt,name=f,proto3" json:"f,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	F                    *test_a_1.M1 `protobuf:"bytes,1,opt,name=f,proto3" json:"f,omitempty" gorm:"column:f,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte       `gorm:"-" json:"-"`
+	XXX_sizecache        int32        `gorm:"-" json:"-"`
 }
 
 func (m *A1M1) Reset()         { *m = A1M1{} }

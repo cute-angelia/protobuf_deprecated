@@ -2252,7 +2252,7 @@ func (g *Generator) generateMessage(message *Descriptor) {
 		jsonName := *field.Name
 
 		// fixed cyw add gorm and check isRequired
-		tag := fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+",omitempty", "column:"+jsonName+",omitempty")
+		tag := fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+",omitempty", "column:"+jsonName+"")
 		if isRequired(field) {
 			tag = fmt.Sprintf("protobuf:%s json:%q gorm:%q", g.goTag(message, field, wiretype), jsonName+"", "column:"+jsonName+"")
 		}

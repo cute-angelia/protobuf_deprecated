@@ -52,14 +52,14 @@ func (Request_Flavour) EnumDescriptor() ([]byte, []int) {
 }
 
 type Request struct {
-	Name                 string          `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Key                  []int64         `protobuf:"varint,2,rep,packed,name=key,proto3" json:"key,omitempty"`
-	Taste                Request_Flavour `protobuf:"varint,3,opt,name=taste,proto3,enum=proto3.Request_Flavour" json:"taste,omitempty"`
-	Book                 *Book           `protobuf:"bytes,4,opt,name=book,proto3" json:"book,omitempty"`
-	Unpacked             []int64         `protobuf:"varint,5,rep,name=unpacked,proto3" json:"unpacked,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	Name                 string          `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Key                  []int64         `protobuf:"varint,2,rep,packed,name=key,proto3" json:"key,omitempty" gorm:"column:key,omitempty"`
+	Taste                Request_Flavour `protobuf:"varint,3,opt,name=taste,proto3,enum=proto3.Request_Flavour" json:"taste,omitempty" gorm:"column:taste,omitempty"`
+	Book                 *Book           `protobuf:"bytes,4,opt,name=book,proto3" json:"book,omitempty" gorm:"column:book,omitempty"`
+	Unpacked             []int64         `protobuf:"varint,5,rep,name=unpacked,proto3" json:"unpacked,omitempty" gorm:"column:unpacked,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *Request) Reset()         { *m = Request{} }
@@ -123,11 +123,11 @@ func (m *Request) GetUnpacked() []int64 {
 }
 
 type Book struct {
-	Title                string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	RawData              []byte   `protobuf:"bytes,2,opt,name=raw_data,json=rawData,proto3" json:"raw_data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Title                string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" gorm:"column:title,omitempty"`
+	RawData              []byte   `protobuf:"bytes,2,opt,name=raw_data,json=rawData,proto3" json:"raw_data,omitempty" gorm:"column:raw_data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Book) Reset()         { *m = Book{} }

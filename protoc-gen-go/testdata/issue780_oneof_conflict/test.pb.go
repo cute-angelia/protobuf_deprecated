@@ -24,9 +24,9 @@ type Foo struct {
 	// Types that are valid to be assigned to Bar:
 	//	*Foo_GetBar
 	Bar                  isFoo_Bar `protobuf_oneof:"bar"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}  `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte    `gorm:"-" json:"-"`
+	XXX_sizecache        int32     `gorm:"-" json:"-"`
 }
 
 func (m *Foo) Reset()         { *m = Foo{} }
@@ -89,7 +89,9 @@ func init() {
 	proto.RegisterType((*Foo)(nil), "oneoftest.Foo")
 }
 
-func init() { proto.RegisterFile("issue780_oneof_conflict/test.proto", fileDescriptor_48462cafc802a68e) }
+func init() {
+	proto.RegisterFile("issue780_oneof_conflict/test.proto", fileDescriptor_48462cafc802a68e)
+}
 
 var fileDescriptor_48462cafc802a68e = []byte{
 	// 107 bytes of a gzipped FileDescriptorProto

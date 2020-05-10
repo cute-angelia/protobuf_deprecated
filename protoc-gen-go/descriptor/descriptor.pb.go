@@ -347,10 +347,10 @@ func (MethodOptions_IdempotencyLevel) EnumDescriptor() ([]byte, []int) {
 // The protocol compiler can output a FileDescriptorSet containing the .proto
 // files it parses.
 type FileDescriptorSet struct {
-	File                 []*FileDescriptorProto `protobuf:"bytes,1,rep,name=file" json:"file,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
+	File                 []*FileDescriptorProto `protobuf:"bytes,1,rep,name=file" json:"file,omitempty" gorm:"column:file,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}               `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                 `gorm:"-" json:"-"`
+	XXX_sizecache        int32                  `gorm:"-" json:"-"`
 }
 
 func (m *FileDescriptorSet) Reset()         { *m = FileDescriptorSet{} }
@@ -387,32 +387,32 @@ func (m *FileDescriptorSet) GetFile() []*FileDescriptorProto {
 
 // Describes a complete .proto file.
 type FileDescriptorProto struct {
-	Name    *string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Package *string `protobuf:"bytes,2,opt,name=package" json:"package,omitempty"`
+	Name    *string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Package *string `protobuf:"bytes,2,opt,name=package" json:"package,omitempty" gorm:"column:package,omitempty"`
 	// Names of files imported by this file.
-	Dependency []string `protobuf:"bytes,3,rep,name=dependency" json:"dependency,omitempty"`
+	Dependency []string `protobuf:"bytes,3,rep,name=dependency" json:"dependency,omitempty" gorm:"column:dependency,omitempty"`
 	// Indexes of the public imported files in the dependency list above.
-	PublicDependency []int32 `protobuf:"varint,10,rep,name=public_dependency,json=publicDependency" json:"public_dependency,omitempty"`
+	PublicDependency []int32 `protobuf:"varint,10,rep,name=public_dependency,json=publicDependency" json:"public_dependency,omitempty" gorm:"column:public_dependency,omitempty"`
 	// Indexes of the weak imported files in the dependency list.
 	// For Google-internal migration only. Do not use.
-	WeakDependency []int32 `protobuf:"varint,11,rep,name=weak_dependency,json=weakDependency" json:"weak_dependency,omitempty"`
+	WeakDependency []int32 `protobuf:"varint,11,rep,name=weak_dependency,json=weakDependency" json:"weak_dependency,omitempty" gorm:"column:weak_dependency,omitempty"`
 	// All top-level definitions in this file.
-	MessageType []*DescriptorProto        `protobuf:"bytes,4,rep,name=message_type,json=messageType" json:"message_type,omitempty"`
-	EnumType    []*EnumDescriptorProto    `protobuf:"bytes,5,rep,name=enum_type,json=enumType" json:"enum_type,omitempty"`
-	Service     []*ServiceDescriptorProto `protobuf:"bytes,6,rep,name=service" json:"service,omitempty"`
-	Extension   []*FieldDescriptorProto   `protobuf:"bytes,7,rep,name=extension" json:"extension,omitempty"`
-	Options     *FileOptions              `protobuf:"bytes,8,opt,name=options" json:"options,omitempty"`
+	MessageType []*DescriptorProto        `protobuf:"bytes,4,rep,name=message_type,json=messageType" json:"message_type,omitempty" gorm:"column:message_type,omitempty"`
+	EnumType    []*EnumDescriptorProto    `protobuf:"bytes,5,rep,name=enum_type,json=enumType" json:"enum_type,omitempty" gorm:"column:enum_type,omitempty"`
+	Service     []*ServiceDescriptorProto `protobuf:"bytes,6,rep,name=service" json:"service,omitempty" gorm:"column:service,omitempty"`
+	Extension   []*FieldDescriptorProto   `protobuf:"bytes,7,rep,name=extension" json:"extension,omitempty" gorm:"column:extension,omitempty"`
+	Options     *FileOptions              `protobuf:"bytes,8,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
 	// This field contains optional information about the original source code.
 	// You may safely remove this entire field without harming runtime
 	// functionality of the descriptors -- the information is needed only by
 	// development tools.
-	SourceCodeInfo *SourceCodeInfo `protobuf:"bytes,9,opt,name=source_code_info,json=sourceCodeInfo" json:"source_code_info,omitempty"`
+	SourceCodeInfo *SourceCodeInfo `protobuf:"bytes,9,opt,name=source_code_info,json=sourceCodeInfo" json:"source_code_info,omitempty" gorm:"column:source_code_info,omitempty"`
 	// The syntax of the proto file.
 	// The supported values are "proto2" and "proto3".
-	Syntax               *string  `protobuf:"bytes,12,opt,name=syntax" json:"syntax,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Syntax               *string  `protobuf:"bytes,12,opt,name=syntax" json:"syntax,omitempty" gorm:"column:syntax,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *FileDescriptorProto) Reset()         { *m = FileDescriptorProto{} }
@@ -526,21 +526,21 @@ func (m *FileDescriptorProto) GetSyntax() string {
 
 // Describes a message type.
 type DescriptorProto struct {
-	Name           *string                           `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Field          []*FieldDescriptorProto           `protobuf:"bytes,2,rep,name=field" json:"field,omitempty"`
-	Extension      []*FieldDescriptorProto           `protobuf:"bytes,6,rep,name=extension" json:"extension,omitempty"`
-	NestedType     []*DescriptorProto                `protobuf:"bytes,3,rep,name=nested_type,json=nestedType" json:"nested_type,omitempty"`
-	EnumType       []*EnumDescriptorProto            `protobuf:"bytes,4,rep,name=enum_type,json=enumType" json:"enum_type,omitempty"`
-	ExtensionRange []*DescriptorProto_ExtensionRange `protobuf:"bytes,5,rep,name=extension_range,json=extensionRange" json:"extension_range,omitempty"`
-	OneofDecl      []*OneofDescriptorProto           `protobuf:"bytes,8,rep,name=oneof_decl,json=oneofDecl" json:"oneof_decl,omitempty"`
-	Options        *MessageOptions                   `protobuf:"bytes,7,opt,name=options" json:"options,omitempty"`
-	ReservedRange  []*DescriptorProto_ReservedRange  `protobuf:"bytes,9,rep,name=reserved_range,json=reservedRange" json:"reserved_range,omitempty"`
+	Name           *string                           `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Field          []*FieldDescriptorProto           `protobuf:"bytes,2,rep,name=field" json:"field,omitempty" gorm:"column:field,omitempty"`
+	Extension      []*FieldDescriptorProto           `protobuf:"bytes,6,rep,name=extension" json:"extension,omitempty" gorm:"column:extension,omitempty"`
+	NestedType     []*DescriptorProto                `protobuf:"bytes,3,rep,name=nested_type,json=nestedType" json:"nested_type,omitempty" gorm:"column:nested_type,omitempty"`
+	EnumType       []*EnumDescriptorProto            `protobuf:"bytes,4,rep,name=enum_type,json=enumType" json:"enum_type,omitempty" gorm:"column:enum_type,omitempty"`
+	ExtensionRange []*DescriptorProto_ExtensionRange `protobuf:"bytes,5,rep,name=extension_range,json=extensionRange" json:"extension_range,omitempty" gorm:"column:extension_range,omitempty"`
+	OneofDecl      []*OneofDescriptorProto           `protobuf:"bytes,8,rep,name=oneof_decl,json=oneofDecl" json:"oneof_decl,omitempty" gorm:"column:oneof_decl,omitempty"`
+	Options        *MessageOptions                   `protobuf:"bytes,7,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	ReservedRange  []*DescriptorProto_ReservedRange  `protobuf:"bytes,9,rep,name=reserved_range,json=reservedRange" json:"reserved_range,omitempty" gorm:"column:reserved_range,omitempty"`
 	// Reserved field names, which may not be used by fields in the same message.
 	// A given name may only be reserved once.
-	ReservedName         []string `protobuf:"bytes,10,rep,name=reserved_name,json=reservedName" json:"reserved_name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	ReservedName         []string `protobuf:"bytes,10,rep,name=reserved_name,json=reservedName" json:"reserved_name,omitempty" gorm:"column:reserved_name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *DescriptorProto) Reset()         { *m = DescriptorProto{} }
@@ -639,12 +639,12 @@ func (m *DescriptorProto) GetReservedName() []string {
 }
 
 type DescriptorProto_ExtensionRange struct {
-	Start                *int32                 `protobuf:"varint,1,opt,name=start" json:"start,omitempty"`
-	End                  *int32                 `protobuf:"varint,2,opt,name=end" json:"end,omitempty"`
-	Options              *ExtensionRangeOptions `protobuf:"bytes,3,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
+	Start                *int32                 `protobuf:"varint,1,opt,name=start" json:"start,omitempty" gorm:"column:start,omitempty"`
+	End                  *int32                 `protobuf:"varint,2,opt,name=end" json:"end,omitempty" gorm:"column:end,omitempty"`
+	Options              *ExtensionRangeOptions `protobuf:"bytes,3,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}               `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                 `gorm:"-" json:"-"`
+	XXX_sizecache        int32                  `gorm:"-" json:"-"`
 }
 
 func (m *DescriptorProto_ExtensionRange) Reset()         { *m = DescriptorProto_ExtensionRange{} }
@@ -697,11 +697,11 @@ func (m *DescriptorProto_ExtensionRange) GetOptions() *ExtensionRangeOptions {
 // fields or extension ranges in the same message. Reserved ranges may
 // not overlap.
 type DescriptorProto_ReservedRange struct {
-	Start                *int32   `protobuf:"varint,1,opt,name=start" json:"start,omitempty"`
-	End                  *int32   `protobuf:"varint,2,opt,name=end" json:"end,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Start                *int32   `protobuf:"varint,1,opt,name=start" json:"start,omitempty" gorm:"column:start,omitempty"`
+	End                  *int32   `protobuf:"varint,2,opt,name=end" json:"end,omitempty" gorm:"column:end,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *DescriptorProto_ReservedRange) Reset()         { *m = DescriptorProto_ReservedRange{} }
@@ -745,11 +745,11 @@ func (m *DescriptorProto_ReservedRange) GetEnd() int32 {
 
 type ExtensionRangeOptions struct {
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *ExtensionRangeOptions) Reset()         { *m = ExtensionRangeOptions{} }
@@ -794,39 +794,39 @@ func (m *ExtensionRangeOptions) GetUninterpretedOption() []*UninterpretedOption 
 
 // Describes a field within a message.
 type FieldDescriptorProto struct {
-	Name   *string                     `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Number *int32                      `protobuf:"varint,3,opt,name=number" json:"number,omitempty"`
-	Label  *FieldDescriptorProto_Label `protobuf:"varint,4,opt,name=label,enum=google.protobuf.FieldDescriptorProto_Label" json:"label,omitempty"`
+	Name   *string                     `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Number *int32                      `protobuf:"varint,3,opt,name=number" json:"number,omitempty" gorm:"column:number,omitempty"`
+	Label  *FieldDescriptorProto_Label `protobuf:"varint,4,opt,name=label,enum=google.protobuf.FieldDescriptorProto_Label" json:"label,omitempty" gorm:"column:label,omitempty"`
 	// If type_name is set, this need not be set.  If both this and type_name
 	// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
-	Type *FieldDescriptorProto_Type `protobuf:"varint,5,opt,name=type,enum=google.protobuf.FieldDescriptorProto_Type" json:"type,omitempty"`
+	Type *FieldDescriptorProto_Type `protobuf:"varint,5,opt,name=type,enum=google.protobuf.FieldDescriptorProto_Type" json:"type,omitempty" gorm:"column:type,omitempty"`
 	// For message and enum types, this is the name of the type.  If the name
 	// starts with a '.', it is fully-qualified.  Otherwise, C++-like scoping
 	// rules are used to find the type (i.e. first the nested types within this
 	// message are searched, then within the parent, on up to the root
 	// namespace).
-	TypeName *string `protobuf:"bytes,6,opt,name=type_name,json=typeName" json:"type_name,omitempty"`
+	TypeName *string `protobuf:"bytes,6,opt,name=type_name,json=typeName" json:"type_name,omitempty" gorm:"column:type_name,omitempty"`
 	// For extensions, this is the name of the type being extended.  It is
 	// resolved in the same manner as type_name.
-	Extendee *string `protobuf:"bytes,2,opt,name=extendee" json:"extendee,omitempty"`
+	Extendee *string `protobuf:"bytes,2,opt,name=extendee" json:"extendee,omitempty" gorm:"column:extendee,omitempty"`
 	// For numeric types, contains the original text representation of the value.
 	// For booleans, "true" or "false".
 	// For strings, contains the default text contents (not escaped in any way).
 	// For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
 	// TODO(kenton):  Base-64 encode?
-	DefaultValue *string `protobuf:"bytes,7,opt,name=default_value,json=defaultValue" json:"default_value,omitempty"`
+	DefaultValue *string `protobuf:"bytes,7,opt,name=default_value,json=defaultValue" json:"default_value,omitempty" gorm:"column:default_value,omitempty"`
 	// If set, gives the index of a oneof in the containing type's oneof_decl
 	// list.  This field is a member of that oneof.
-	OneofIndex *int32 `protobuf:"varint,9,opt,name=oneof_index,json=oneofIndex" json:"oneof_index,omitempty"`
+	OneofIndex *int32 `protobuf:"varint,9,opt,name=oneof_index,json=oneofIndex" json:"oneof_index,omitempty" gorm:"column:oneof_index,omitempty"`
 	// JSON name of this field. The value is set by protocol compiler. If the
 	// user has set a "json_name" option on this field, that option's value
 	// will be used. Otherwise, it's deduced from the field's name by converting
 	// it to camelCase.
-	JsonName             *string       `protobuf:"bytes,10,opt,name=json_name,json=jsonName" json:"json_name,omitempty"`
-	Options              *FieldOptions `protobuf:"bytes,8,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	JsonName             *string       `protobuf:"bytes,10,opt,name=json_name,json=jsonName" json:"json_name,omitempty" gorm:"column:json_name,omitempty"`
+	Options              *FieldOptions `protobuf:"bytes,8,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte        `gorm:"-" json:"-"`
+	XXX_sizecache        int32         `gorm:"-" json:"-"`
 }
 
 func (m *FieldDescriptorProto) Reset()         { *m = FieldDescriptorProto{} }
@@ -926,11 +926,11 @@ func (m *FieldDescriptorProto) GetOptions() *FieldOptions {
 
 // Describes a oneof.
 type OneofDescriptorProto struct {
-	Name                 *string       `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Options              *OneofOptions `protobuf:"bytes,2,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	Name                 *string       `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Options              *OneofOptions `protobuf:"bytes,2,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte        `gorm:"-" json:"-"`
+	XXX_sizecache        int32         `gorm:"-" json:"-"`
 }
 
 func (m *OneofDescriptorProto) Reset()         { *m = OneofDescriptorProto{} }
@@ -974,12 +974,12 @@ func (m *OneofDescriptorProto) GetOptions() *OneofOptions {
 
 // Describes an enum type.
 type EnumDescriptorProto struct {
-	Name                 *string                     `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Value                []*EnumValueDescriptorProto `protobuf:"bytes,2,rep,name=value" json:"value,omitempty"`
-	Options              *EnumOptions                `protobuf:"bytes,3,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                    `json:"-"`
-	XXX_unrecognized     []byte                      `json:"-"`
-	XXX_sizecache        int32                       `json:"-"`
+	Name                 *string                     `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Value                []*EnumValueDescriptorProto `protobuf:"bytes,2,rep,name=value" json:"value,omitempty" gorm:"column:value,omitempty"`
+	Options              *EnumOptions                `protobuf:"bytes,3,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                    `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                      `gorm:"-" json:"-"`
+	XXX_sizecache        int32                       `gorm:"-" json:"-"`
 }
 
 func (m *EnumDescriptorProto) Reset()         { *m = EnumDescriptorProto{} }
@@ -1030,12 +1030,12 @@ func (m *EnumDescriptorProto) GetOptions() *EnumOptions {
 
 // Describes a value within an enum.
 type EnumValueDescriptorProto struct {
-	Name                 *string           `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Number               *int32            `protobuf:"varint,2,opt,name=number" json:"number,omitempty"`
-	Options              *EnumValueOptions `protobuf:"bytes,3,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
+	Name                 *string           `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Number               *int32            `protobuf:"varint,2,opt,name=number" json:"number,omitempty" gorm:"column:number,omitempty"`
+	Options              *EnumValueOptions `protobuf:"bytes,3,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte            `gorm:"-" json:"-"`
+	XXX_sizecache        int32             `gorm:"-" json:"-"`
 }
 
 func (m *EnumValueDescriptorProto) Reset()         { *m = EnumValueDescriptorProto{} }
@@ -1086,12 +1086,12 @@ func (m *EnumValueDescriptorProto) GetOptions() *EnumValueOptions {
 
 // Describes a service.
 type ServiceDescriptorProto struct {
-	Name                 *string                  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Method               []*MethodDescriptorProto `protobuf:"bytes,2,rep,name=method" json:"method,omitempty"`
-	Options              *ServiceOptions          `protobuf:"bytes,3,opt,name=options" json:"options,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	Name                 *string                  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Method               []*MethodDescriptorProto `protobuf:"bytes,2,rep,name=method" json:"method,omitempty" gorm:"column:method,omitempty"`
+	Options              *ServiceOptions          `protobuf:"bytes,3,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                 `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                   `gorm:"-" json:"-"`
+	XXX_sizecache        int32                    `gorm:"-" json:"-"`
 }
 
 func (m *ServiceDescriptorProto) Reset()         { *m = ServiceDescriptorProto{} }
@@ -1142,19 +1142,19 @@ func (m *ServiceDescriptorProto) GetOptions() *ServiceOptions {
 
 // Describes a method of a service.
 type MethodDescriptorProto struct {
-	Name *string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	Name *string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
 	// Input and output type names.  These are resolved in the same way as
 	// FieldDescriptorProto.type_name, but must refer to a message type.
-	InputType  *string        `protobuf:"bytes,2,opt,name=input_type,json=inputType" json:"input_type,omitempty"`
-	OutputType *string        `protobuf:"bytes,3,opt,name=output_type,json=outputType" json:"output_type,omitempty"`
-	Options    *MethodOptions `protobuf:"bytes,4,opt,name=options" json:"options,omitempty"`
+	InputType  *string        `protobuf:"bytes,2,opt,name=input_type,json=inputType" json:"input_type,omitempty" gorm:"column:input_type,omitempty"`
+	OutputType *string        `protobuf:"bytes,3,opt,name=output_type,json=outputType" json:"output_type,omitempty" gorm:"column:output_type,omitempty"`
+	Options    *MethodOptions `protobuf:"bytes,4,opt,name=options" json:"options,omitempty" gorm:"column:options,omitempty"`
 	// Identifies if client streams multiple client messages
-	ClientStreaming *bool `protobuf:"varint,5,opt,name=client_streaming,json=clientStreaming,def=0" json:"client_streaming,omitempty"`
+	ClientStreaming *bool `protobuf:"varint,5,opt,name=client_streaming,json=clientStreaming,def=0" json:"client_streaming,omitempty" gorm:"column:client_streaming,omitempty"`
 	// Identifies if server streams multiple server messages
-	ServerStreaming      *bool    `protobuf:"varint,6,opt,name=server_streaming,json=serverStreaming,def=0" json:"server_streaming,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	ServerStreaming      *bool    `protobuf:"varint,6,opt,name=server_streaming,json=serverStreaming,def=0" json:"server_streaming,omitempty" gorm:"column:server_streaming,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *MethodDescriptorProto) Reset()         { *m = MethodDescriptorProto{} }
@@ -1232,36 +1232,36 @@ type FileOptions struct {
 	// placed.  By default, the proto package is used, but this is often
 	// inappropriate because proto packages do not normally start with backwards
 	// domain names.
-	JavaPackage *string `protobuf:"bytes,1,opt,name=java_package,json=javaPackage" json:"java_package,omitempty"`
+	JavaPackage *string `protobuf:"bytes,1,opt,name=java_package,json=javaPackage" json:"java_package,omitempty" gorm:"column:java_package,omitempty"`
 	// If set, all the classes from the .proto file are wrapped in a single
 	// outer class with the given name.  This applies to both Proto1
 	// (equivalent to the old "--one_java_file" option) and Proto2 (where
 	// a .proto always translates to a single class, but you may want to
 	// explicitly choose the class name).
-	JavaOuterClassname *string `protobuf:"bytes,8,opt,name=java_outer_classname,json=javaOuterClassname" json:"java_outer_classname,omitempty"`
+	JavaOuterClassname *string `protobuf:"bytes,8,opt,name=java_outer_classname,json=javaOuterClassname" json:"java_outer_classname,omitempty" gorm:"column:java_outer_classname,omitempty"`
 	// If set true, then the Java code generator will generate a separate .java
 	// file for each top-level message, enum, and service defined in the .proto
 	// file.  Thus, these types will *not* be nested inside the outer class
 	// named by java_outer_classname.  However, the outer class will still be
 	// generated to contain the file's getDescriptor() method as well as any
 	// top-level extensions defined in the file.
-	JavaMultipleFiles *bool `protobuf:"varint,10,opt,name=java_multiple_files,json=javaMultipleFiles,def=0" json:"java_multiple_files,omitempty"`
+	JavaMultipleFiles *bool `protobuf:"varint,10,opt,name=java_multiple_files,json=javaMultipleFiles,def=0" json:"java_multiple_files,omitempty" gorm:"column:java_multiple_files,omitempty"`
 	// This option does nothing.
-	JavaGenerateEqualsAndHash *bool `protobuf:"varint,20,opt,name=java_generate_equals_and_hash,json=javaGenerateEqualsAndHash" json:"java_generate_equals_and_hash,omitempty"` // Deprecated: Do not use.
+	JavaGenerateEqualsAndHash *bool `protobuf:"varint,20,opt,name=java_generate_equals_and_hash,json=javaGenerateEqualsAndHash" json:"java_generate_equals_and_hash,omitempty" gorm:"column:java_generate_equals_and_hash,omitempty"` // Deprecated: Do not use.
 	// If set true, then the Java2 code generator will generate code that
 	// throws an exception whenever an attempt is made to assign a non-UTF-8
 	// byte sequence to a string field.
 	// Message reflection will do the same.
 	// However, an extension field still accepts non-UTF-8 byte sequences.
 	// This option has no effect on when used with the lite runtime.
-	JavaStringCheckUtf8 *bool                     `protobuf:"varint,27,opt,name=java_string_check_utf8,json=javaStringCheckUtf8,def=0" json:"java_string_check_utf8,omitempty"`
-	OptimizeFor         *FileOptions_OptimizeMode `protobuf:"varint,9,opt,name=optimize_for,json=optimizeFor,enum=google.protobuf.FileOptions_OptimizeMode,def=1" json:"optimize_for,omitempty"`
+	JavaStringCheckUtf8 *bool                     `protobuf:"varint,27,opt,name=java_string_check_utf8,json=javaStringCheckUtf8,def=0" json:"java_string_check_utf8,omitempty" gorm:"column:java_string_check_utf8,omitempty"`
+	OptimizeFor         *FileOptions_OptimizeMode `protobuf:"varint,9,opt,name=optimize_for,json=optimizeFor,enum=google.protobuf.FileOptions_OptimizeMode,def=1" json:"optimize_for,omitempty" gorm:"column:optimize_for,omitempty"`
 	// Sets the Go package where structs generated from this .proto will be
 	// placed. If omitted, the Go package will be derived from the following:
 	//   - The basename of the package import path, if provided.
 	//   - Otherwise, the package statement in the .proto file, if present.
 	//   - Otherwise, the basename of the .proto file, without extension.
-	GoPackage *string `protobuf:"bytes,11,opt,name=go_package,json=goPackage" json:"go_package,omitempty"`
+	GoPackage *string `protobuf:"bytes,11,opt,name=go_package,json=goPackage" json:"go_package,omitempty" gorm:"column:go_package,omitempty"`
 	// Should generic services be generated in each language?  "Generic" services
 	// are not specific to any particular RPC system.  They are generated by the
 	// main code generators in each language (without additional plugins).
@@ -1272,41 +1272,41 @@ type FileOptions struct {
 	// that generate code specific to your particular RPC system.  Therefore,
 	// these default to false.  Old code which depends on generic services should
 	// explicitly set them to true.
-	CcGenericServices   *bool `protobuf:"varint,16,opt,name=cc_generic_services,json=ccGenericServices,def=0" json:"cc_generic_services,omitempty"`
-	JavaGenericServices *bool `protobuf:"varint,17,opt,name=java_generic_services,json=javaGenericServices,def=0" json:"java_generic_services,omitempty"`
-	PyGenericServices   *bool `protobuf:"varint,18,opt,name=py_generic_services,json=pyGenericServices,def=0" json:"py_generic_services,omitempty"`
-	PhpGenericServices  *bool `protobuf:"varint,42,opt,name=php_generic_services,json=phpGenericServices,def=0" json:"php_generic_services,omitempty"`
+	CcGenericServices   *bool `protobuf:"varint,16,opt,name=cc_generic_services,json=ccGenericServices,def=0" json:"cc_generic_services,omitempty" gorm:"column:cc_generic_services,omitempty"`
+	JavaGenericServices *bool `protobuf:"varint,17,opt,name=java_generic_services,json=javaGenericServices,def=0" json:"java_generic_services,omitempty" gorm:"column:java_generic_services,omitempty"`
+	PyGenericServices   *bool `protobuf:"varint,18,opt,name=py_generic_services,json=pyGenericServices,def=0" json:"py_generic_services,omitempty" gorm:"column:py_generic_services,omitempty"`
+	PhpGenericServices  *bool `protobuf:"varint,42,opt,name=php_generic_services,json=phpGenericServices,def=0" json:"php_generic_services,omitempty" gorm:"column:php_generic_services,omitempty"`
 	// Is this file deprecated?
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for everything in the file, or it will be completely ignored; in the very
 	// least, this is a formalization for deprecating files.
-	Deprecated *bool `protobuf:"varint,23,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,23,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// Enables the use of arenas for the proto messages in this file. This applies
 	// only to generated classes for C++.
-	CcEnableArenas *bool `protobuf:"varint,31,opt,name=cc_enable_arenas,json=ccEnableArenas,def=0" json:"cc_enable_arenas,omitempty"`
+	CcEnableArenas *bool `protobuf:"varint,31,opt,name=cc_enable_arenas,json=ccEnableArenas,def=0" json:"cc_enable_arenas,omitempty" gorm:"column:cc_enable_arenas,omitempty"`
 	// Sets the objective c class prefix which is prepended to all objective c
 	// generated classes from this .proto. There is no default.
-	ObjcClassPrefix *string `protobuf:"bytes,36,opt,name=objc_class_prefix,json=objcClassPrefix" json:"objc_class_prefix,omitempty"`
+	ObjcClassPrefix *string `protobuf:"bytes,36,opt,name=objc_class_prefix,json=objcClassPrefix" json:"objc_class_prefix,omitempty" gorm:"column:objc_class_prefix,omitempty"`
 	// Namespace for generated classes; defaults to the package.
-	CsharpNamespace *string `protobuf:"bytes,37,opt,name=csharp_namespace,json=csharpNamespace" json:"csharp_namespace,omitempty"`
+	CsharpNamespace *string `protobuf:"bytes,37,opt,name=csharp_namespace,json=csharpNamespace" json:"csharp_namespace,omitempty" gorm:"column:csharp_namespace,omitempty"`
 	// By default Swift generators will take the proto package and CamelCase it
 	// replacing '.' with underscore and use that to prefix the types/symbols
 	// defined. When this options is provided, they will use this value instead
 	// to prefix the types/symbols defined.
-	SwiftPrefix *string `protobuf:"bytes,39,opt,name=swift_prefix,json=swiftPrefix" json:"swift_prefix,omitempty"`
+	SwiftPrefix *string `protobuf:"bytes,39,opt,name=swift_prefix,json=swiftPrefix" json:"swift_prefix,omitempty" gorm:"column:swift_prefix,omitempty"`
 	// Sets the php class prefix which is prepended to all php generated classes
 	// from this .proto. Default is empty.
-	PhpClassPrefix *string `protobuf:"bytes,40,opt,name=php_class_prefix,json=phpClassPrefix" json:"php_class_prefix,omitempty"`
+	PhpClassPrefix *string `protobuf:"bytes,40,opt,name=php_class_prefix,json=phpClassPrefix" json:"php_class_prefix,omitempty" gorm:"column:php_class_prefix,omitempty"`
 	// Use this option to change the namespace of php generated classes. Default
 	// is empty. When this option is empty, the package name will be used for
 	// determining the namespace.
-	PhpNamespace *string `protobuf:"bytes,41,opt,name=php_namespace,json=phpNamespace" json:"php_namespace,omitempty"`
+	PhpNamespace *string `protobuf:"bytes,41,opt,name=php_namespace,json=phpNamespace" json:"php_namespace,omitempty" gorm:"column:php_namespace,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *FileOptions) Reset()         { *m = FileOptions{} }
@@ -1505,16 +1505,16 @@ type MessageOptions struct {
 	//
 	// Because this is an option, the above two restrictions are not enforced by
 	// the protocol compiler.
-	MessageSetWireFormat *bool `protobuf:"varint,1,opt,name=message_set_wire_format,json=messageSetWireFormat,def=0" json:"message_set_wire_format,omitempty"`
+	MessageSetWireFormat *bool `protobuf:"varint,1,opt,name=message_set_wire_format,json=messageSetWireFormat,def=0" json:"message_set_wire_format,omitempty" gorm:"column:message_set_wire_format,omitempty"`
 	// Disables the generation of the standard "descriptor()" accessor, which can
 	// conflict with a field of the same name.  This is meant to make migration
 	// from proto1 easier; new code should avoid fields named "descriptor".
-	NoStandardDescriptorAccessor *bool `protobuf:"varint,2,opt,name=no_standard_descriptor_accessor,json=noStandardDescriptorAccessor,def=0" json:"no_standard_descriptor_accessor,omitempty"`
+	NoStandardDescriptorAccessor *bool `protobuf:"varint,2,opt,name=no_standard_descriptor_accessor,json=noStandardDescriptorAccessor,def=0" json:"no_standard_descriptor_accessor,omitempty" gorm:"column:no_standard_descriptor_accessor,omitempty"`
 	// Is this message deprecated?
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for the message, or it will be completely ignored; in the very least,
 	// this is a formalization for deprecating messages.
-	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// Whether the message is an automatically generated map entry type for the
 	// maps field.
 	//
@@ -1536,13 +1536,13 @@ type MessageOptions struct {
 	// NOTE: Do not set the option in .proto files. Always use the maps syntax
 	// instead. The option should only be implicitly set by the proto compiler
 	// parser.
-	MapEntry *bool `protobuf:"varint,7,opt,name=map_entry,json=mapEntry" json:"map_entry,omitempty"`
+	MapEntry *bool `protobuf:"varint,7,opt,name=map_entry,json=mapEntry" json:"map_entry,omitempty" gorm:"column:map_entry,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *MessageOptions) Reset()         { *m = MessageOptions{} }
@@ -1622,13 +1622,13 @@ type FieldOptions struct {
 	// representation of the field than it normally would.  See the specific
 	// options below.  This option is not yet implemented in the open source
 	// release -- sorry, we'll try to include it in a future version!
-	Ctype *FieldOptions_CType `protobuf:"varint,1,opt,name=ctype,enum=google.protobuf.FieldOptions_CType,def=0" json:"ctype,omitempty"`
+	Ctype *FieldOptions_CType `protobuf:"varint,1,opt,name=ctype,enum=google.protobuf.FieldOptions_CType,def=0" json:"ctype,omitempty" gorm:"column:ctype,omitempty"`
 	// The packed option can be enabled for repeated primitive fields to enable
 	// a more efficient representation on the wire. Rather than repeatedly
 	// writing the tag and type for each element, the entire array is encoded as
 	// a single length-delimited blob. In proto3, only explicit setting it to
 	// false will avoid using packed encoding.
-	Packed *bool `protobuf:"varint,2,opt,name=packed" json:"packed,omitempty"`
+	Packed *bool `protobuf:"varint,2,opt,name=packed" json:"packed,omitempty" gorm:"column:packed,omitempty"`
 	// The jstype option determines the JavaScript type used for values of the
 	// field.  The option is permitted only for 64 bit integral and fixed types
 	// (int64, uint64, sint64, fixed64, sfixed64).  A field with jstype JS_STRING
@@ -1640,7 +1640,7 @@ type FieldOptions struct {
 	//
 	// This option is an enum to permit additional types to be added, e.g.
 	// goog.math.Integer.
-	Jstype *FieldOptions_JSType `protobuf:"varint,6,opt,name=jstype,enum=google.protobuf.FieldOptions_JSType,def=0" json:"jstype,omitempty"`
+	Jstype *FieldOptions_JSType `protobuf:"varint,6,opt,name=jstype,enum=google.protobuf.FieldOptions_JSType,def=0" json:"jstype,omitempty" gorm:"column:jstype,omitempty"`
 	// Should this field be parsed lazily?  Lazy applies only to message-type
 	// fields.  It means that when the outer message is initially parsed, the
 	// inner message's contents will not be parsed but instead stored in encoded
@@ -1669,20 +1669,20 @@ type FieldOptions struct {
 	// implementation must either *always* check its required fields, or *never*
 	// check its required fields, regardless of whether or not the message has
 	// been parsed.
-	Lazy *bool `protobuf:"varint,5,opt,name=lazy,def=0" json:"lazy,omitempty"`
+	Lazy *bool `protobuf:"varint,5,opt,name=lazy,def=0" json:"lazy,omitempty" gorm:"column:lazy,omitempty"`
 	// Is this field deprecated?
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for accessors, or it will be completely ignored; in the very least, this
 	// is a formalization for deprecating fields.
-	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// For Google-internal migration only. Do not use.
-	Weak *bool `protobuf:"varint,10,opt,name=weak,def=0" json:"weak,omitempty"`
+	Weak *bool `protobuf:"varint,10,opt,name=weak,def=0" json:"weak,omitempty" gorm:"column:weak,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *FieldOptions) Reset()         { *m = FieldOptions{} }
@@ -1775,11 +1775,11 @@ func (m *FieldOptions) GetUninterpretedOption() []*UninterpretedOption {
 
 type OneofOptions struct {
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *OneofOptions) Reset()         { *m = OneofOptions{} }
@@ -1825,18 +1825,18 @@ func (m *OneofOptions) GetUninterpretedOption() []*UninterpretedOption {
 type EnumOptions struct {
 	// Set this option to true to allow mapping different tag names to the same
 	// value.
-	AllowAlias *bool `protobuf:"varint,2,opt,name=allow_alias,json=allowAlias" json:"allow_alias,omitempty"`
+	AllowAlias *bool `protobuf:"varint,2,opt,name=allow_alias,json=allowAlias" json:"allow_alias,omitempty" gorm:"column:allow_alias,omitempty"`
 	// Is this enum deprecated?
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for the enum, or it will be completely ignored; in the very least, this
 	// is a formalization for deprecating enums.
-	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *EnumOptions) Reset()         { *m = EnumOptions{} }
@@ -1900,13 +1900,13 @@ type EnumValueOptions struct {
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for the enum value, or it will be completely ignored; in the very least,
 	// this is a formalization for deprecating enum values.
-	Deprecated *bool `protobuf:"varint,1,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,1,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *EnumValueOptions) Reset()         { *m = EnumValueOptions{} }
@@ -1963,13 +1963,13 @@ type ServiceOptions struct {
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for the service, or it will be completely ignored; in the very least,
 	// this is a formalization for deprecating services.
-	Deprecated *bool `protobuf:"varint,33,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
+	Deprecated *bool `protobuf:"varint,33,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *ServiceOptions) Reset()         { *m = ServiceOptions{} }
@@ -2026,14 +2026,14 @@ type MethodOptions struct {
 	// Depending on the target platform, this can emit Deprecated annotations
 	// for the method, or it will be completely ignored; in the very least,
 	// this is a formalization for deprecating methods.
-	Deprecated       *bool                           `protobuf:"varint,33,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
-	IdempotencyLevel *MethodOptions_IdempotencyLevel `protobuf:"varint,34,opt,name=idempotency_level,json=idempotencyLevel,enum=google.protobuf.MethodOptions_IdempotencyLevel,def=0" json:"idempotency_level,omitempty"`
+	Deprecated       *bool                           `protobuf:"varint,33,opt,name=deprecated,def=0" json:"deprecated,omitempty" gorm:"column:deprecated,omitempty"`
+	IdempotencyLevel *MethodOptions_IdempotencyLevel `protobuf:"varint,34,opt,name=idempotency_level,json=idempotencyLevel,enum=google.protobuf.MethodOptions_IdempotencyLevel,def=0" json:"idempotency_level,omitempty" gorm:"column:idempotency_level,omitempty"`
 	// The parser stores options it doesn't recognize here. See above.
-	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty"`
-	XXX_NoUnkeyedLiteral         struct{}               `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	UninterpretedOption          []*UninterpretedOption `protobuf:"bytes,999,rep,name=uninterpreted_option,json=uninterpretedOption" json:"uninterpreted_option,omitempty" gorm:"column:uninterpreted_option,omitempty"`
+	XXX_NoUnkeyedLiteral         struct{}               `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *MethodOptions) Reset()         { *m = MethodOptions{} }
@@ -2100,18 +2100,18 @@ func (m *MethodOptions) GetUninterpretedOption() []*UninterpretedOption {
 // or produced by Descriptor::CopyTo()) will never have UninterpretedOptions
 // in them.
 type UninterpretedOption struct {
-	Name []*UninterpretedOption_NamePart `protobuf:"bytes,2,rep,name=name" json:"name,omitempty"`
+	Name []*UninterpretedOption_NamePart `protobuf:"bytes,2,rep,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
 	// The value of the uninterpreted option, in whatever type the tokenizer
 	// identified it as during parsing. Exactly one of these should be set.
-	IdentifierValue      *string  `protobuf:"bytes,3,opt,name=identifier_value,json=identifierValue" json:"identifier_value,omitempty"`
-	PositiveIntValue     *uint64  `protobuf:"varint,4,opt,name=positive_int_value,json=positiveIntValue" json:"positive_int_value,omitempty"`
-	NegativeIntValue     *int64   `protobuf:"varint,5,opt,name=negative_int_value,json=negativeIntValue" json:"negative_int_value,omitempty"`
-	DoubleValue          *float64 `protobuf:"fixed64,6,opt,name=double_value,json=doubleValue" json:"double_value,omitempty"`
-	StringValue          []byte   `protobuf:"bytes,7,opt,name=string_value,json=stringValue" json:"string_value,omitempty"`
-	AggregateValue       *string  `protobuf:"bytes,8,opt,name=aggregate_value,json=aggregateValue" json:"aggregate_value,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	IdentifierValue      *string  `protobuf:"bytes,3,opt,name=identifier_value,json=identifierValue" json:"identifier_value,omitempty" gorm:"column:identifier_value,omitempty"`
+	PositiveIntValue     *uint64  `protobuf:"varint,4,opt,name=positive_int_value,json=positiveIntValue" json:"positive_int_value,omitempty" gorm:"column:positive_int_value,omitempty"`
+	NegativeIntValue     *int64   `protobuf:"varint,5,opt,name=negative_int_value,json=negativeIntValue" json:"negative_int_value,omitempty" gorm:"column:negative_int_value,omitempty"`
+	DoubleValue          *float64 `protobuf:"fixed64,6,opt,name=double_value,json=doubleValue" json:"double_value,omitempty" gorm:"column:double_value,omitempty"`
+	StringValue          []byte   `protobuf:"bytes,7,opt,name=string_value,json=stringValue" json:"string_value,omitempty" gorm:"column:string_value,omitempty"`
+	AggregateValue       *string  `protobuf:"bytes,8,opt,name=aggregate_value,json=aggregateValue" json:"aggregate_value,omitempty" gorm:"column:aggregate_value,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *UninterpretedOption) Reset()         { *m = UninterpretedOption{} }
@@ -2194,11 +2194,11 @@ func (m *UninterpretedOption) GetAggregateValue() string {
 // E.g.,{ ["foo", false], ["bar.baz", true], ["qux", false] } represents
 // "foo.(bar.baz).qux".
 type UninterpretedOption_NamePart struct {
-	NamePart             *string  `protobuf:"bytes,1,req,name=name_part,json=namePart" json:"name_part,omitempty"`
-	IsExtension          *bool    `protobuf:"varint,2,req,name=is_extension,json=isExtension" json:"is_extension,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	NamePart             *string  `protobuf:"bytes,1,req,name=name_part,json=namePart" json:"name_part" gorm:"column:name_part"`
+	IsExtension          *bool    `protobuf:"varint,2,req,name=is_extension,json=isExtension" json:"is_extension" gorm:"column:is_extension"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *UninterpretedOption_NamePart) Reset()         { *m = UninterpretedOption_NamePart{} }
@@ -2286,10 +2286,10 @@ type SourceCodeInfo struct {
 	// - Code which tries to interpret locations should probably be designed to
 	//   ignore those that it doesn't understand, as more types of locations could
 	//   be recorded in the future.
-	Location             []*SourceCodeInfo_Location `protobuf:"bytes,1,rep,name=location" json:"location,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
-	XXX_unrecognized     []byte                     `json:"-"`
-	XXX_sizecache        int32                      `json:"-"`
+	Location             []*SourceCodeInfo_Location `protobuf:"bytes,1,rep,name=location" json:"location,omitempty" gorm:"column:location,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                   `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                     `gorm:"-" json:"-"`
+	XXX_sizecache        int32                      `gorm:"-" json:"-"`
 }
 
 func (m *SourceCodeInfo) Reset()         { *m = SourceCodeInfo{} }
@@ -2348,13 +2348,13 @@ type SourceCodeInfo_Location struct {
 	//   [ 4, 3, 2, 7 ]
 	// this path refers to the whole field declaration (from the beginning
 	// of the label to the terminating semicolon).
-	Path []int32 `protobuf:"varint,1,rep,packed,name=path" json:"path,omitempty"`
+	Path []int32 `protobuf:"varint,1,rep,packed,name=path" json:"path,omitempty" gorm:"column:path,omitempty"`
 	// Always has exactly three or four elements: start line, start column,
 	// end line (optional, otherwise assumed same as start line), end column.
 	// These are packed into a single field for efficiency.  Note that line
 	// and column numbers are zero-based -- typically you will want to add
 	// 1 to each before displaying to a user.
-	Span []int32 `protobuf:"varint,2,rep,packed,name=span" json:"span,omitempty"`
+	Span []int32 `protobuf:"varint,2,rep,packed,name=span" json:"span,omitempty" gorm:"column:span,omitempty"`
 	// If this SourceCodeInfo represents a complete declaration, these are any
 	// comments appearing before and after the declaration which appear to be
 	// attached to the declaration.
@@ -2402,12 +2402,12 @@ type SourceCodeInfo_Location struct {
 	//   optional int32 grault = 6;
 	//
 	//   // ignored detached comments.
-	LeadingComments         *string  `protobuf:"bytes,3,opt,name=leading_comments,json=leadingComments" json:"leading_comments,omitempty"`
-	TrailingComments        *string  `protobuf:"bytes,4,opt,name=trailing_comments,json=trailingComments" json:"trailing_comments,omitempty"`
-	LeadingDetachedComments []string `protobuf:"bytes,6,rep,name=leading_detached_comments,json=leadingDetachedComments" json:"leading_detached_comments,omitempty"`
-	XXX_NoUnkeyedLiteral    struct{} `json:"-"`
-	XXX_unrecognized        []byte   `json:"-"`
-	XXX_sizecache           int32    `json:"-"`
+	LeadingComments         *string  `protobuf:"bytes,3,opt,name=leading_comments,json=leadingComments" json:"leading_comments,omitempty" gorm:"column:leading_comments,omitempty"`
+	TrailingComments        *string  `protobuf:"bytes,4,opt,name=trailing_comments,json=trailingComments" json:"trailing_comments,omitempty" gorm:"column:trailing_comments,omitempty"`
+	LeadingDetachedComments []string `protobuf:"bytes,6,rep,name=leading_detached_comments,json=leadingDetachedComments" json:"leading_detached_comments,omitempty" gorm:"column:leading_detached_comments,omitempty"`
+	XXX_NoUnkeyedLiteral    struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized        []byte   `gorm:"-" json:"-"`
+	XXX_sizecache           int32    `gorm:"-" json:"-"`
 }
 
 func (m *SourceCodeInfo_Location) Reset()         { *m = SourceCodeInfo_Location{} }
@@ -2476,10 +2476,10 @@ func (m *SourceCodeInfo_Location) GetLeadingDetachedComments() []string {
 type GeneratedCodeInfo struct {
 	// An Annotation connects some span of text in generated code to an element
 	// of its generating .proto file.
-	Annotation           []*GeneratedCodeInfo_Annotation `protobuf:"bytes,1,rep,name=annotation" json:"annotation,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                        `json:"-"`
-	XXX_unrecognized     []byte                          `json:"-"`
-	XXX_sizecache        int32                           `json:"-"`
+	Annotation           []*GeneratedCodeInfo_Annotation `protobuf:"bytes,1,rep,name=annotation" json:"annotation,omitempty" gorm:"column:annotation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte                          `gorm:"-" json:"-"`
+	XXX_sizecache        int32                           `gorm:"-" json:"-"`
 }
 
 func (m *GeneratedCodeInfo) Reset()         { *m = GeneratedCodeInfo{} }
@@ -2517,19 +2517,19 @@ func (m *GeneratedCodeInfo) GetAnnotation() []*GeneratedCodeInfo_Annotation {
 type GeneratedCodeInfo_Annotation struct {
 	// Identifies the element in the original source .proto file. This field
 	// is formatted the same as SourceCodeInfo.Location.path.
-	Path []int32 `protobuf:"varint,1,rep,packed,name=path" json:"path,omitempty"`
+	Path []int32 `protobuf:"varint,1,rep,packed,name=path" json:"path,omitempty" gorm:"column:path,omitempty"`
 	// Identifies the filesystem path to the original source .proto.
-	SourceFile *string `protobuf:"bytes,2,opt,name=source_file,json=sourceFile" json:"source_file,omitempty"`
+	SourceFile *string `protobuf:"bytes,2,opt,name=source_file,json=sourceFile" json:"source_file,omitempty" gorm:"column:source_file,omitempty"`
 	// Identifies the starting offset in bytes in the generated code
 	// that relates to the identified object.
-	Begin *int32 `protobuf:"varint,3,opt,name=begin" json:"begin,omitempty"`
+	Begin *int32 `protobuf:"varint,3,opt,name=begin" json:"begin,omitempty" gorm:"column:begin,omitempty"`
 	// Identifies the ending offset in bytes in the generated code that
 	// relates to the identified offset. The end offset should be one past
 	// the last relevant byte (so the length of the text = end - begin).
-	End                  *int32   `protobuf:"varint,4,opt,name=end" json:"end,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	End                  *int32   `protobuf:"varint,4,opt,name=end" json:"end,omitempty" gorm:"column:end,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *GeneratedCodeInfo_Annotation) Reset()         { *m = GeneratedCodeInfo_Annotation{} }

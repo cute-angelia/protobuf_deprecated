@@ -21,12 +21,12 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Multi1 struct {
-	Multi2               *Multi2         `protobuf:"bytes,1,req,name=multi2" json:"multi2,omitempty"`
-	Color                *Multi2_Color   `protobuf:"varint,2,opt,name=color,enum=multitest.Multi2_Color" json:"color,omitempty"`
-	HatType              *Multi3_HatType `protobuf:"varint,3,opt,name=hat_type,json=hatType,enum=multitest.Multi3_HatType" json:"hat_type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	Multi2               *Multi2         `protobuf:"bytes,1,req,name=multi2" json:"multi2" gorm:"column:multi2"`
+	Color                *Multi2_Color   `protobuf:"varint,2,opt,name=color,enum=multitest.Multi2_Color" json:"color,omitempty" gorm:"column:color,omitempty"`
+	HatType              *Multi3_HatType `protobuf:"varint,3,opt,name=hat_type,json=hatType,enum=multitest.Multi3_HatType" json:"hat_type,omitempty" gorm:"column:hat_type,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *Multi1) Reset()         { *m = Multi1{} }

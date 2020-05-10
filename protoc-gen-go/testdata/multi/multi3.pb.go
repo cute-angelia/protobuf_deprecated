@@ -61,10 +61,10 @@ func (Multi3_HatType) EnumDescriptor() ([]byte, []int) {
 }
 
 type Multi3 struct {
-	HatType              *Multi3_HatType `protobuf:"varint,1,opt,name=hat_type,json=hatType,enum=multitest.Multi3_HatType" json:"hat_type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	HatType              *Multi3_HatType `protobuf:"varint,1,opt,name=hat_type,json=hatType,enum=multitest.Multi3_HatType" json:"hat_type,omitempty" gorm:"column:hat_type,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte          `gorm:"-" json:"-"`
+	XXX_sizecache        int32           `gorm:"-" json:"-"`
 }
 
 func (m *Multi3) Reset()         { *m = Multi3{} }

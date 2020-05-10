@@ -23,11 +23,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type UserMessage struct {
-	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Rank                 *string  `protobuf:"bytes,2,opt,name=rank" json:"rank,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Name                 *string  `protobuf:"bytes,1,opt,name=name" json:"name,omitempty" gorm:"column:name,omitempty"`
+	Rank                 *string  `protobuf:"bytes,2,opt,name=rank" json:"rank,omitempty" gorm:"column:rank,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *UserMessage) Reset()         { *m = UserMessage{} }
@@ -71,10 +71,10 @@ func (m *UserMessage) GetRank() string {
 
 // Extend inside the scope of another type
 type LoudMessage struct {
-	XXX_NoUnkeyedLiteral         struct{} `json:"-"`
-	proto.XXX_InternalExtensions `json:"-"`
-	XXX_unrecognized             []byte `json:"-"`
-	XXX_sizecache                int32  `json:"-"`
+	XXX_NoUnkeyedLiteral         struct{} `gorm:"-" json:"-"`
+	proto.XXX_InternalExtensions `gorm:"-" json:"-"`
+	XXX_unrecognized             []byte `gorm:"-" json:"-"`
+	XXX_sizecache                int32  `gorm:"-" json:"-"`
 }
 
 func (m *LoudMessage) Reset()         { *m = LoudMessage{} }
@@ -121,9 +121,9 @@ var E_LoudMessage_Volume = &proto.ExtensionDesc{
 
 // Extend inside the scope of another type, using a message.
 type LoginMessage struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *LoginMessage) Reset()         { *m = LoginMessage{} }
@@ -161,10 +161,10 @@ var E_LoginMessage_UserMessage = &proto.ExtensionDesc{
 }
 
 type Detail struct {
-	Color                *string  `protobuf:"bytes,1,opt,name=color" json:"color,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Color                *string  `protobuf:"bytes,1,opt,name=color" json:"color,omitempty" gorm:"column:color,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Detail) Reset()         { *m = Detail{} }
@@ -201,10 +201,10 @@ func (m *Detail) GetColor() string {
 
 // An extension of an extension
 type Announcement struct {
-	Words                *string  `protobuf:"bytes,1,opt,name=words" json:"words,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Words                *string  `protobuf:"bytes,1,opt,name=words" json:"words,omitempty" gorm:"column:words,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *Announcement) Reset()         { *m = Announcement{} }
@@ -250,11 +250,11 @@ var E_Announcement_LoudExt = &proto.ExtensionDesc{
 
 // Something that can be put in a message set.
 type OldStyleParcel struct {
-	Name                 *string  `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
-	Height               *int32   `protobuf:"varint,2,opt,name=height" json:"height,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Name                 *string  `protobuf:"bytes,1,req,name=name" json:"name" gorm:"column:name"`
+	Height               *int32   `protobuf:"varint,2,opt,name=height" json:"height,omitempty" gorm:"column:height,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *OldStyleParcel) Reset()         { *m = OldStyleParcel{} }

@@ -24,10 +24,10 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type M struct {
 	// Message type defined in a file publicly imported by a file we import.
-	M                    *sub.M   `protobuf:"bytes,1,opt,name=m" json:"m,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	M                    *sub.M   `protobuf:"bytes,1,opt,name=m" json:"m,omitempty" gorm:"column:m,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *M) Reset()         { *m = M{} }

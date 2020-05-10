@@ -4,12 +4,8 @@
 package testing
 
 import (
-	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -25,9 +21,9 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type SimpleRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *SimpleRequest) Reset()         { *m = SimpleRequest{} }
@@ -56,9 +52,9 @@ func (m *SimpleRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_SimpleRequest proto.InternalMessageInfo
 
 type SimpleResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *SimpleResponse) Reset()         { *m = SimpleResponse{} }
@@ -87,9 +83,9 @@ func (m *SimpleResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_SimpleResponse proto.InternalMessageInfo
 
 type StreamMsg struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *StreamMsg) Reset()         { *m = StreamMsg{} }
@@ -118,9 +114,9 @@ func (m *StreamMsg) XXX_DiscardUnknown() {
 var xxx_messageInfo_StreamMsg proto.InternalMessageInfo
 
 type StreamMsg2 struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `gorm:"-" json:"-"`
+	XXX_unrecognized     []byte   `gorm:"-" json:"-"`
+	XXX_sizecache        int32    `gorm:"-" json:"-"`
 }
 
 func (m *StreamMsg2) Reset()         { *m = StreamMsg2{} }
@@ -175,292 +171,4 @@ var fileDescriptor_81ea47a3f88c2082 = []byte{
 	0x9a, 0xa7, 0x9b, 0x9e, 0xaf, 0x0f, 0x32, 0x22, 0x25, 0xb1, 0x24, 0x11, 0x1c, 0x4d, 0xd6, 0x50,
 	0x03, 0x93, 0xd8, 0xc0, 0x8a, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x90, 0xb9, 0x95, 0x42,
 	0xc2, 0x01, 0x00, 0x00,
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConn
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
-
-// TestClient is the client API for Test service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type TestClient interface {
-	UnaryCall(ctx context.Context, in *SimpleRequest, opts ...grpc.CallOption) (*SimpleResponse, error)
-	// This RPC streams from the server only.
-	Downstream(ctx context.Context, in *SimpleRequest, opts ...grpc.CallOption) (Test_DownstreamClient, error)
-	// This RPC streams from the client.
-	Upstream(ctx context.Context, opts ...grpc.CallOption) (Test_UpstreamClient, error)
-	// This one streams in both directions.
-	Bidi(ctx context.Context, opts ...grpc.CallOption) (Test_BidiClient, error)
-}
-
-type testClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewTestClient(cc *grpc.ClientConn) TestClient {
-	return &testClient{cc}
-}
-
-func (c *testClient) UnaryCall(ctx context.Context, in *SimpleRequest, opts ...grpc.CallOption) (*SimpleResponse, error) {
-	out := new(SimpleResponse)
-	err := c.cc.Invoke(ctx, "/grpc.testing.Test/UnaryCall", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *testClient) Downstream(ctx context.Context, in *SimpleRequest, opts ...grpc.CallOption) (Test_DownstreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Test_serviceDesc.Streams[0], "/grpc.testing.Test/Downstream", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &testDownstreamClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Test_DownstreamClient interface {
-	Recv() (*StreamMsg, error)
-	grpc.ClientStream
-}
-
-type testDownstreamClient struct {
-	grpc.ClientStream
-}
-
-func (x *testDownstreamClient) Recv() (*StreamMsg, error) {
-	m := new(StreamMsg)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *testClient) Upstream(ctx context.Context, opts ...grpc.CallOption) (Test_UpstreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Test_serviceDesc.Streams[1], "/grpc.testing.Test/Upstream", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &testUpstreamClient{stream}
-	return x, nil
-}
-
-type Test_UpstreamClient interface {
-	Send(*StreamMsg) error
-	CloseAndRecv() (*SimpleResponse, error)
-	grpc.ClientStream
-}
-
-type testUpstreamClient struct {
-	grpc.ClientStream
-}
-
-func (x *testUpstreamClient) Send(m *StreamMsg) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *testUpstreamClient) CloseAndRecv() (*SimpleResponse, error) {
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	m := new(SimpleResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *testClient) Bidi(ctx context.Context, opts ...grpc.CallOption) (Test_BidiClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Test_serviceDesc.Streams[2], "/grpc.testing.Test/Bidi", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &testBidiClient{stream}
-	return x, nil
-}
-
-type Test_BidiClient interface {
-	Send(*StreamMsg) error
-	Recv() (*StreamMsg2, error)
-	grpc.ClientStream
-}
-
-type testBidiClient struct {
-	grpc.ClientStream
-}
-
-func (x *testBidiClient) Send(m *StreamMsg) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *testBidiClient) Recv() (*StreamMsg2, error) {
-	m := new(StreamMsg2)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-// TestServer is the server API for Test service.
-type TestServer interface {
-	UnaryCall(context.Context, *SimpleRequest) (*SimpleResponse, error)
-	// This RPC streams from the server only.
-	Downstream(*SimpleRequest, Test_DownstreamServer) error
-	// This RPC streams from the client.
-	Upstream(Test_UpstreamServer) error
-	// This one streams in both directions.
-	Bidi(Test_BidiServer) error
-}
-
-// UnimplementedTestServer can be embedded to have forward compatible implementations.
-type UnimplementedTestServer struct {
-}
-
-func (*UnimplementedTestServer) UnaryCall(ctx context.Context, req *SimpleRequest) (*SimpleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnaryCall not implemented")
-}
-func (*UnimplementedTestServer) Downstream(req *SimpleRequest, srv Test_DownstreamServer) error {
-	return status.Errorf(codes.Unimplemented, "method Downstream not implemented")
-}
-func (*UnimplementedTestServer) Upstream(srv Test_UpstreamServer) error {
-	return status.Errorf(codes.Unimplemented, "method Upstream not implemented")
-}
-func (*UnimplementedTestServer) Bidi(srv Test_BidiServer) error {
-	return status.Errorf(codes.Unimplemented, "method Bidi not implemented")
-}
-
-func RegisterTestServer(s *grpc.Server, srv TestServer) {
-	s.RegisterService(&_Test_serviceDesc, srv)
-}
-
-func _Test_UnaryCall_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SimpleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TestServer).UnaryCall(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.testing.Test/UnaryCall",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TestServer).UnaryCall(ctx, req.(*SimpleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Test_Downstream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SimpleRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(TestServer).Downstream(m, &testDownstreamServer{stream})
-}
-
-type Test_DownstreamServer interface {
-	Send(*StreamMsg) error
-	grpc.ServerStream
-}
-
-type testDownstreamServer struct {
-	grpc.ServerStream
-}
-
-func (x *testDownstreamServer) Send(m *StreamMsg) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _Test_Upstream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(TestServer).Upstream(&testUpstreamServer{stream})
-}
-
-type Test_UpstreamServer interface {
-	SendAndClose(*SimpleResponse) error
-	Recv() (*StreamMsg, error)
-	grpc.ServerStream
-}
-
-type testUpstreamServer struct {
-	grpc.ServerStream
-}
-
-func (x *testUpstreamServer) SendAndClose(m *SimpleResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *testUpstreamServer) Recv() (*StreamMsg, error) {
-	m := new(StreamMsg)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func _Test_Bidi_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(TestServer).Bidi(&testBidiServer{stream})
-}
-
-type Test_BidiServer interface {
-	Send(*StreamMsg2) error
-	Recv() (*StreamMsg, error)
-	grpc.ServerStream
-}
-
-type testBidiServer struct {
-	grpc.ServerStream
-}
-
-func (x *testBidiServer) Send(m *StreamMsg2) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *testBidiServer) Recv() (*StreamMsg, error) {
-	m := new(StreamMsg)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-var _Test_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.testing.Test",
-	HandlerType: (*TestServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "UnaryCall",
-			Handler:    _Test_UnaryCall_Handler,
-		},
-	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "Downstream",
-			Handler:       _Test_Downstream_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "Upstream",
-			Handler:       _Test_Upstream_Handler,
-			ClientStreams: true,
-		},
-		{
-			StreamName:    "Bidi",
-			Handler:       _Test_Bidi_Handler,
-			ServerStreams: true,
-			ClientStreams: true,
-		},
-	},
-	Metadata: "grpc/grpc.proto",
 }
